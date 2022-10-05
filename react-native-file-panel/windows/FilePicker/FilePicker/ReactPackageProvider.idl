@@ -1,0 +1,12 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+namespace NativeModuleSample
+{
+    [webhosthidden]
+    [default_interface]
+    runtimeclass ReactPackageProvider : Microsoft.ReactNative.IReactPackageProvider
+    {
+        ReactPackageProvider();
+    };
+}
