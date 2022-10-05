@@ -6,7 +6,7 @@
 
 #include "FilePicker.h"
 
-namespace winrt::NativeModuleSample::implementation
+namespace winrt::FilePicker::implementation
 {
   void ReactPackageProvider::CreatePackage(IReactPackageBuilder const& packageBuilder) noexcept
   {
