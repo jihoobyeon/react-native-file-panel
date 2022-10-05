@@ -1,7 +1,7 @@
 import "oaidl.idl";
 import "ocidl.idl";
 
-namespace NativeModuleSample
+namespace FilePicker
 {
     [webhosthidden]
     [default_interface]
