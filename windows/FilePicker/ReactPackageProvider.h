@@ -4,7 +4,7 @@
 
 using namespace winrt::Microsoft::ReactNative;
 
-namespace winrt::NativeModuleSample::implementation
+namespace winrt::FilePicker::implementation
 {
   struct ReactPackageProvider : ReactPackageProviderT<ReactPackageProvider>
   {
@@ -14,7 +14,7 @@ namespace winrt::NativeModuleSample::implementation
   };
 }
 
-namespace winrt::NativeModuleSample::factory_implementation
+namespace winrt::FilePicker::factory_implementation
 {
   struct ReactPackageProvider : ReactPackageProviderT<ReactPackageProvider, implementation::ReactPackageProvider> {};
 }
