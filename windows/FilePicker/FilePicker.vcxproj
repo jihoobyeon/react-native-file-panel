@@ -25,7 +25,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <PackageReference Include="UAP" Version="10.0"/>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{784bfb1d-e257-452d-84a4-1eecef24227c}</ProjectGuid>
