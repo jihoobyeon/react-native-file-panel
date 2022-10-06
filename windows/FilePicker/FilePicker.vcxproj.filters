@@ -7,7 +7,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="ReactPackageProvider.cpp" />
   </ItemGroup>
