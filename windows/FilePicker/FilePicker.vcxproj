@@ -25,12 +25,15 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <PackageReference Include="UAP" Version="10.0"/>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{784bfb1d-e257-452d-84a4-1eecef24227c}</ProjectGuid>
     <Keyword>StaticLibrary</Keyword>
     <RootNamespace>FilePicker</RootNamespace>
     <DefaultLanguage>ko-KR</DefaultLanguage>
+    <TargetFrameworkVersion>10.0</TargetFrameworkVersion>
+    <TargetFramework>uap</TargetFramework>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
