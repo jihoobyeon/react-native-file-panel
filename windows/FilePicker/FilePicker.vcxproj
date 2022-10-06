@@ -30,9 +30,7 @@
     <ProjectGuid>{784bfb1d-e257-452d-84a4-1eecef24227c}</ProjectGuid>
     <Keyword>StaticLibrary</Keyword>
     <RootNamespace>FilePicker</RootNamespace>
-    <DefaultLanguage>ko-KR</DefaultLanguage>
-    <TargetFrameworkVersion>10.0</TargetFrameworkVersion>
-    <TargetFramework>uap</TargetFramework>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
