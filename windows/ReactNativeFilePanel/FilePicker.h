@@ -1,9 +1,7 @@
 ﻿#pragma once
 
-#include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Windows.Storage.Pickers.h>
-#include <winrt/Windows.UI.Xaml.h>
 
 #include "pch.h"
 #include "JSValue.h"
@@ -46,9 +44,8 @@ namespace FilePicker
 		void Save(wchar_t ext[], wchar_t content[]) noexcept
 		{
 			FileSavePicker savePicker;
-			savePicker.ViewMode(PickerViewMode::Thumbnail);
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-			savePicker.FileTypeFilter().Add(wcscat(dot, ext));
+			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ wcscat(dot, ext) }));
 
 			StorageFile file = co_await savePicker.PickSaveFileAsync();
 
