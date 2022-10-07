@@ -28,9 +28,9 @@ namespace FilePicker
 			FileOpenPicker openPicker;
 			openPicker.ViewMode(PickerViewMode::Thumbnail);
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-			openPicker.FileTypeFilter().Add(wcscat(dot, ext));
+			openPicker.FileTypeFilter().ReplaceAll({ wcscat(dot, ext) });
 
-			StorageFile file = co_await openPicker.PickSingleFileAsync();
+			StorageFile file = await openPicker.PickSingleFileAsync();
 
 			if (file == nullptr) {
 				result.Reject();
@@ -47,7 +47,7 @@ namespace FilePicker
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ wcscat(dot, ext) }));
 
-			StorageFile file = co_await savePicker.PickSaveFileAsync();
+			StorageFile file = await savePicker.PickSaveFileAsync();
 
 			if (file == nullptr) {
 				
