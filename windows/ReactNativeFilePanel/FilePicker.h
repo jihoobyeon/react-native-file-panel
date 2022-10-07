@@ -3,7 +3,7 @@
 #include "pch.h"
 #include "JSValue.h"
 #include "NativeModules.h"
-#include <functional>
+#include "resource.h"
 
 using namespace std;
 using namespace winrt;
