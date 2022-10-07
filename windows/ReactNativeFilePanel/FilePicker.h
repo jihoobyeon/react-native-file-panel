@@ -30,7 +30,7 @@ namespace FilePicker
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			openPicker.FileTypeFilter().ReplaceAll({ wcscat(dot, ext) });
 
-			StorageFile file = await openPicker.PickSingleFileAsync();
+			StorageFile file = co_await openPicker.PickSingleFileAsync();
 
 			if (file == nullptr) {
 				result.Reject();
@@ -47,7 +47,7 @@ namespace FilePicker
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ wcscat(dot, ext) }));
 
-			StorageFile file = await savePicker.PickSaveFileAsync();
+			StorageFile file = co_await savePicker.PickSaveFileAsync();
 
 			if (file == nullptr) {
 				
