@@ -1,16 +1,17 @@
 ﻿#pragma once
 
+#include <winrt/Windows.Storage.h>
+#include <winrt/Windows.Storage.Pickers.h>
+
 #include "pch.h"
 #include "JSValue.h"
 #include "NativeModules.h"
-#include "resource.h"
 
 using namespace std;
 using namespace winrt;
 using namespace winrt::Microsoft::ReactNative;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Pickers;
-using namespace Windows::Storage::Provider;
 using namespace Windows::UI::Xaml;
 
 namespace FilePicker
