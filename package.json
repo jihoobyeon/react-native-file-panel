@@ -32,7 +32,7 @@
   ],
   "repository": "https://github.com/jihoobyeon/react-native-file-panel",
   "author": "Jihoo Byeon <jihoobyeon@gmail.com> (https://github.com/jihoobyeon)",
-  "license": "BSD 3-Clause",
+  "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/jihoobyeon/react-native-file-panel/issues"
   },
