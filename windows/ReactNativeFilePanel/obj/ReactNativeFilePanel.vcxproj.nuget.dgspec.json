@@ -1,0 +1,461 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\windows\\ReactNativeFilePanel\\ReactNativeFilePanel.vcxproj": {}
+  },
+  "projects": {
+    "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Common\\Common.vcxproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Common\\Common.vcxproj",
+        "projectName": "Common",
+        "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Common\\Common.vcxproj",
+        "packagesPath": "C:\\Users\\jihoobyeon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jihoobyeon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "native"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "native": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "native": {
+          "imports": [
+            "uap10.0.16299",
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "win10-arm": {
+          "#import": []
+        },
+        "win10-arm-aot": {
+          "#import": []
+        },
+        "win10-arm64-aot": {
+          "#import": []
+        },
+        "win10-x64": {
+          "#import": []
+        },
+        "win10-x64-aot": {
+          "#import": []
+        },
+        "win10-x86": {
+          "#import": []
+        },
+        "win10-x86-aot": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\fmt\\fmt.vcxproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\fmt\\fmt.vcxproj",
+        "projectName": "fmt",
+        "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\fmt\\fmt.vcxproj",
+        "packagesPath": "C:\\Users\\jihoobyeon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\fmt\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jihoobyeon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "native"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "native": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "native": {
+          "imports": [
+            "uap10.0.16299",
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "win10-arm": {
+          "#import": []
+        },
+        "win10-arm-aot": {
+          "#import": []
+        },
+        "win10-arm64-aot": {
+          "#import": []
+        },
+        "win10-x64": {
+          "#import": []
+        },
+        "win10-x64-aot": {
+          "#import": []
+        },
+        "win10-x86": {
+          "#import": []
+        },
+        "win10-x86-aot": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Folly\\Folly.vcxproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Folly\\Folly.vcxproj",
+        "projectName": "Folly",
+        "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Folly\\Folly.vcxproj",
+        "packagesPath": "C:\\Users\\jihoobyeon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Folly\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jihoobyeon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "native"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "native": {
+            "projectReferences": {
+              "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\fmt\\fmt.vcxproj": {
+                "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\fmt\\fmt.vcxproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "native": {
+          "dependencies": {
+            "boost": {
+              "target": "Package",
+              "version": "[1.76.0, )"
+            }
+          },
+          "imports": [
+            "uap10.0.16299",
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "win10-arm": {
+          "#import": []
+        },
+        "win10-arm-aot": {
+          "#import": []
+        },
+        "win10-arm64-aot": {
+          "#import": []
+        },
+        "win10-x64": {
+          "#import": []
+        },
+        "win10-x64-aot": {
+          "#import": []
+        },
+        "win10-x86": {
+          "#import": []
+        },
+        "win10-x86-aot": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Microsoft.ReactNative\\Microsoft.ReactNative.vcxproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Microsoft.ReactNative\\Microsoft.ReactNative.vcxproj",
+        "projectName": "Microsoft.ReactNative",
+        "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Microsoft.ReactNative\\Microsoft.ReactNative.vcxproj",
+        "packagesPath": "C:\\Users\\jihoobyeon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Microsoft.ReactNative\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jihoobyeon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "native"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "native": {
+            "projectReferences": {
+              "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Common\\Common.vcxproj": {
+                "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Common\\Common.vcxproj"
+              },
+              "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Folly\\Folly.vcxproj": {
+                "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Folly\\Folly.vcxproj"
+              },
+              "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\ReactCommon\\ReactCommon.vcxproj": {
+                "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\ReactCommon\\ReactCommon.vcxproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "native": {
+          "dependencies": {
+            "Microsoft.UI.Xaml": {
+              "target": "Package",
+              "version": "[2.7.0, )"
+            },
+            "Microsoft.Windows.CppWinRT": {
+              "target": "Package",
+              "version": "[2.0.211028.7, )"
+            },
+            "ReactNative.Hermes.Windows": {
+              "target": "Package",
+              "version": "[0.11.6-ms.6, )"
+            },
+            "boost": {
+              "target": "Package",
+              "version": "[1.76.0, )"
+            }
+          },
+          "imports": [
+            "uap10.0.16299",
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "win10-arm": {
+          "#import": []
+        },
+        "win10-arm-aot": {
+          "#import": []
+        },
+        "win10-arm64-aot": {
+          "#import": []
+        },
+        "win10-x64": {
+          "#import": []
+        },
+        "win10-x64-aot": {
+          "#import": []
+        },
+        "win10-x86": {
+          "#import": []
+        },
+        "win10-x86-aot": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\ReactCommon\\ReactCommon.vcxproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\ReactCommon\\ReactCommon.vcxproj",
+        "projectName": "ReactCommon",
+        "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\ReactCommon\\ReactCommon.vcxproj",
+        "packagesPath": "C:\\Users\\jihoobyeon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\ReactCommon\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jihoobyeon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "native"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "native": {
+            "projectReferences": {
+              "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Folly\\Folly.vcxproj": {
+                "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Folly\\Folly.vcxproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "native": {
+          "dependencies": {
+            "boost": {
+              "target": "Package",
+              "version": "[1.76.0, )"
+            }
+          },
+          "imports": [
+            "uap10.0.16299",
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "win10-arm": {
+          "#import": []
+        },
+        "win10-arm-aot": {
+          "#import": []
+        },
+        "win10-arm64-aot": {
+          "#import": []
+        },
+        "win10-x64": {
+          "#import": []
+        },
+        "win10-x64-aot": {
+          "#import": []
+        },
+        "win10-x86": {
+          "#import": []
+        },
+        "win10-x86-aot": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\windows\\ReactNativeFilePanel\\ReactNativeFilePanel.vcxproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\windows\\ReactNativeFilePanel\\ReactNativeFilePanel.vcxproj",
+        "projectName": "ReactNativeFilePanel",
+        "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\windows\\ReactNativeFilePanel\\ReactNativeFilePanel.vcxproj",
+        "packagesPath": "C:\\Users\\jihoobyeon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\windows\\ReactNativeFilePanel\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\windows\\NuGet.Config",
+          "C:\\Users\\jihoobyeon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "native"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/ms/react-native/_packaging/react-native-public/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "native": {
+            "projectReferences": {
+              "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Microsoft.ReactNative\\Microsoft.ReactNative.vcxproj": {
+                "projectPath": "C:\\Users\\jihoobyeon\\Desktop\\react-native-file-panel\\node_modules\\react-native-windows\\Microsoft.ReactNative\\Microsoft.ReactNative.vcxproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "native": {
+          "dependencies": {
+            "Microsoft.UI.Xaml": {
+              "target": "Package",
+              "version": "[2.7.0, )"
+            },
+            "Microsoft.Windows.CppWinRT": {
+              "target": "Package",
+              "version": "[2.0.211028.7, )"
+            }
+          },
+          "imports": [
+            "uap10.0.16299",
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "win10-arm": {
+          "#import": []
+        },
+        "win10-arm-aot": {
+          "#import": []
+        },
+        "win10-arm64-aot": {
+          "#import": []
+        },
+        "win10-x64": {
+          "#import": []
+        },
+        "win10-x64-aot": {
+          "#import": []
+        },
+        "win10-x86": {
+          "#import": []
+        },
+        "win10-x86-aot": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
