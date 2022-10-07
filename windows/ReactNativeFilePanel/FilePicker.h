@@ -8,7 +8,6 @@
 using namespace std;
 using namespace winrt;
 using namespace winrt::Microsoft::ReactNative;
-using namespace Windows::Foundation;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Pickers;
 using namespace Windows::Storage::Provider;
@@ -16,11 +15,6 @@ using namespace Windows::UI::Xaml;
 
 namespace FilePicker
 {
-	FilePicker::FilePicker()
-	{
-		InitializeComponent();
-	}
-
 	REACT_MODULE(Panel);
 	struct Panel
 	{
@@ -29,8 +23,6 @@ namespace FilePicker
 		REACT_METHOD(Open, L"open");
 		void Open(wchar_t ext[], React::ReactPromise<string>&& result) noexcept
 		{
-			auto lifetime = get_strong();
-			
 			FileOpenPicker openPicker;
 			openPicker.ViewMode(PickerViewMode::Thumbnail);
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
@@ -49,8 +41,6 @@ namespace FilePicker
 		REACT_METHOD(Save, L"save");
 		void Save(wchar_t ext[], wchar_t content[]) noexcept
 		{
-			auto lifetime = get_strong();
-			
 			FileSavePicker savePicker;
 			savePicker.ViewMode(PickerViewMode::Thumbnail);
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
