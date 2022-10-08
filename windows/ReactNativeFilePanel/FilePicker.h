@@ -21,22 +21,23 @@ namespace FilePicker
 	REACT_MODULE(Panel);
 	struct Panel
 	{
-		wchar_t dot[32] = L".";
-
 		REACT_METHOD(Open, L"open");
 		fire_and_forget Open(wchar_t ext[], React::ReactPromise<string>&& result) noexcept
 		{
+			wchar_t dot[32] = L".";
+			wcscat_s(dot, 32, ext);
+			
 			FileOpenPicker openPicker;
 			openPicker.ViewMode(PickerViewMode::Thumbnail);
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-			openPicker.FileTypeFilter().ReplaceAll({ wcscat_s(dot, 32, ext) });
+			openPicker.FileTypeFilter().ReplaceAll({ dot });
 
 			StorageFile file = co_await openPicker.PickSingleFileAsync();
 
 			if (file == nullptr) {
 				result.Reject("No file selected.");
 			} else {
-				string uri = file.Path();
+				hstring uri = file.Path();
 				result.Resolve(uri);
 			}
 		}
@@ -44,16 +45,18 @@ namespace FilePicker
 		REACT_METHOD(Save, L"save");
 		fire_and_forget Save(wchar_t ext[], wchar_t content[]) noexcept
 		{
+			wchar_t dot[32] = L".";
+			wcscat_s(dot, 32, ext);
+			
 			FileSavePicker savePicker;
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ wcscat_s(dot, 32, ext) }));
+			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ dot }));
 
 			StorageFile file = co_await savePicker.PickSaveFileAsync();
 
 			if (file == nullptr) {
 				
-			}
-			else {
+			} else {
 				await FileIO::WriteTextAsync(file, content);
 			}
 		}
