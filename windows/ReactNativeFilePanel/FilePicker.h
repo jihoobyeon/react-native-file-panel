@@ -23,7 +23,7 @@ namespace FilePicker
 		wchar_t dot[32] = L".";
 
 		REACT_METHOD(Open, L"open");
-		void Open(wchar_t ext[], React::ReactPromise<string>&& result) noexcept
+		fire_and_forget Open(wchar_t ext[], React::ReactPromise<string>&& result) noexcept
 		{
 			FileOpenPicker openPicker;
 			openPicker.ViewMode(PickerViewMode::Thumbnail);
@@ -41,7 +41,7 @@ namespace FilePicker
 		}
 
 		REACT_METHOD(Save, L"save");
-		void Save(wchar_t ext[], wchar_t content[]) noexcept
+		fire_and_forget Save(wchar_t ext[], wchar_t content[]) noexcept
 		{
 			FileSavePicker savePicker;
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
