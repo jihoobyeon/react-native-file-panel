@@ -38,7 +38,7 @@ namespace FilePicker
 				result.Reject("No file selected.");
 			} else {
 				const hstring uri = file.Path();
-				result.Resolve(uri);
+				result.Resolve(&uri);
 			}
 		}
 
