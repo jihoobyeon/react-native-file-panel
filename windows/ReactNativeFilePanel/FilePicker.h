@@ -37,8 +37,8 @@ namespace FilePicker
 			if (file == nullptr) {
 				result.Reject("No file selected.");
 			} else {
-				const hstring uri = file.Path();
-				result.Resolve(uri.c_str());
+				hstring uri = file.Path();
+				result.Resolve(to_string(uri));
 			}
 		}
 
