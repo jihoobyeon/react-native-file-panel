@@ -32,7 +32,7 @@ namespace FilePicker
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			openPicker.FileTypeFilter().ReplaceAll({ dot });
 
-			StorageFile file = await openPicker.PickSingleFileAsync();
+			StorageFile file = openPicker.PickSingleFileAsync();
 
 			if (file == nullptr) {
 				result.Reject("No file selected.");
@@ -52,7 +52,7 @@ namespace FilePicker
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ dot }));
 
-			StorageFile file = await savePicker.PickSaveFileAsync();
+			StorageFile file = savePicker.PickSaveFileAsync();
 
 			if (file == nullptr) {
 				
