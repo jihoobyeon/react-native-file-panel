@@ -18,11 +18,6 @@ using namespace Windows::UI::Xaml;
 
 namespace FilePicker
 {
-	FilePicker::FilePicker()
-	{
-        	InitializeComponent();
-	}
-	
 	REACT_MODULE(Panel);
 	struct Panel
 	{
@@ -31,8 +26,6 @@ namespace FilePicker
 		REACT_METHOD(Open, L"open");
 		fire_and_forget Open(wchar_t ext[], React::ReactPromise<string>&& result) noexcept
 		{
-			auto lifetime = get_strong();
-			
 			FileOpenPicker openPicker;
 			openPicker.ViewMode(PickerViewMode::Thumbnail);
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
@@ -51,8 +44,6 @@ namespace FilePicker
 		REACT_METHOD(Save, L"save");
 		fire_and_forget Save(wchar_t ext[], wchar_t content[]) noexcept
 		{
-			auto lifetime = get_strong();
-			
 			FileSavePicker savePicker;
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ wcscat_s(dot, 32, ext) }));
