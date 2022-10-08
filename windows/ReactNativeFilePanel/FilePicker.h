@@ -22,7 +22,7 @@ namespace FilePicker
 	struct Panel
 	{
 		REACT_METHOD(Open, L"open");
-		fire_and_forget Open(wchar_t ext[], React::ReactPromise<string>&& result) noexcept
+		void Open(wchar_t ext[], React::ReactPromise<string>&& result) noexcept
 		{
 			wchar_t dot[32] = L".";
 			wcscat_s(dot, 32, ext);
@@ -43,7 +43,7 @@ namespace FilePicker
 		}
 
 		REACT_METHOD(Save, L"save");
-		fire_and_forget Save(wchar_t ext[], wchar_t content[]) noexcept
+		void Save(wchar_t ext[], wchar_t content[]) noexcept
 		{
 			wchar_t dot[32] = L".";
 			wcscat_s(dot, 32, ext);
