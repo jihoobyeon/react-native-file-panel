@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <Microsoft.UI.Xaml.Window.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Windows.Storage.Pickers.h>
