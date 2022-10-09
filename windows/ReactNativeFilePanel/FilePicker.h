@@ -18,40 +18,40 @@ using namespace Windows::UI::Xaml;
 
 namespace FilePicker
 {
-	REACT_MODULE(Panel);
-	struct Panel
-	{
-		REACT_METHOD(Open, L"open");
-		fire_and_forget Open(wchar_t ext[], React::ReactPromise<string> promise) noexcept
-		{
-			wchar_t str[32] = L".";
-			wcscat_s(str, 32, ext);
-			
-			FileOpenPicker openPicker;
-			openPicker.ViewMode(PickerViewMode::List);
-			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-			openPicker.FileTypeFilter().ReplaceAll({ str });
-			
-			StorageFile file = co_await openPicker.PickSingleFileAsync();
-			string uri = to_string(file.Path());
-			if (uri == "") {
-				promise.Reject("No file selected.");
-			} else {
-				promise.Resolve(uri);
-			}
-		}
+    REACT_MODULE(Panel);
+    struct Panel
+    {
+        REACT_METHOD(Open, L"open");
+        fire_and_forget Open(hstring const& ext, React::ReactPromise<string> promise) noexcept
+        {
+            wchar_t str[32] = L".";
+            wcscat_s(str, 32, ext.c_str);
+            
+            FileOpenPicker openPicker;
+            openPicker.ViewMode(PickerViewMode::List);
+            openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+            openPicker.FileTypeFilter().ReplaceAll({ str });
+            
+            StorageFile file = co_await openPicker.PickSingleFileAsync();
+            if (file == nullptr) {
+                promise.Reject("No file selected.");
+            } else {
+                promise.Resolve(to_string(file.Path()));
+            }
+        }
 
-		REACT_METHOD(Save, L"save");
-		fire_and_forget Save(wchar_t ext[], wchar_t content[]) noexcept
-		{
-			wchar_t str[32] = L".";
-			wcscat_s(str, 32, ext);
-			
-			FileSavePicker savePicker;
-			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ str }));
+        REACT_METHOD(Save, L"save");
+        fire_and_forget Save(hstring const& ext, hstring const& content) noexcept
+        {
+            wchar_t str[32] = L".";
+            wcscat_s(str, 32, ext.c_str);
+            
+            FileSavePicker savePicker;
+            savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+            savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ str }));
 
-			await FileIO::WriteTextAsync(co_await savePicker.PickSaveFileAsync(), content);
-		}
-	};
+            StorageFile file = co_await savePicker.PickSaveFileAsync();
+            await FileIO::WriteTextAsync(file, content.c_str);
+        }
+    };
 }
