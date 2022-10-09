@@ -11,8 +11,8 @@
   #include <VersionMacros.h>
 #endif
 
+#include <microsoft.ui.xaml.window.h>
 #include <winrt/Microsoft.ReactNative.h>
-
 #include <winrt/Microsoft.UI.Xaml.Automation.Peers.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
