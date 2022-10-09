@@ -34,7 +34,7 @@ namespace FilePicker
             openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
             openPicker.FileTypeFilter().Append(str);
             
-            auto initializeWithWindow = folderPicker.as<::IInitializeWithWindow>();
+            auto initializeWithWindow = openPicker.as<::IInitializeWithWindow>();
             initializeWithWindow->Initialize(hwnd);
             
             StorageFile file = co_await openPicker.PickSingleFileAsync();
@@ -56,7 +56,7 @@ namespace FilePicker
             savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
             savePicker.FileTypeChoices().Insert(ext, { str });
             
-            auto initializeWithWindow = folderPicker.as<::IInitializeWithWindow>();
+            auto initializeWithWindow = savePicker.as<::IInitializeWithWindow>();
             initializeWithWindow->Initialize(hwnd);
 
             StorageFile file = co_await savePicker.PickSaveFileAsync();
