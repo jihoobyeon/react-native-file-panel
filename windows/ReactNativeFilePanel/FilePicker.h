@@ -31,9 +31,10 @@ namespace FilePicker
 			openPicker.ViewMode(PickerViewMode::List);
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			openPicker.FileTypeFilter().ReplaceAll({ str });
-
-			hstring uri = openPicker.PickSingleFileAsync().Path();
-			if (uri == null) {
+			
+			Storage file = co_await openPicker.PickSingleFileAsync();
+			hstring uri = file.Path();
+			if (uri == NULL) {
 				promise.Reject("No file selected.");
 			} else {
 				promise.Resolve(to_string(uri));
