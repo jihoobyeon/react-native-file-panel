@@ -28,14 +28,14 @@ namespace FilePicker
 			wcscat_s(str, 32, ext);
 			
 			FileOpenPicker openPicker;
-			openPicker.ViewMode(PickerViewMode::Thumbnail);
+			openPicker.ViewMode(PickerViewMode::List);
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			openPicker.FileTypeFilter().ReplaceAll({ str });
 
-			auto open = openPicker();
+			auto open = openPicker;
 			co_await open.PickSingleFileAsync();
 
-			if (open == nullptr) {
+			if (!open) {
 				promise.Reject("No file selected.");
 			} else {
 				hstring uri = open.Path();
@@ -53,10 +53,10 @@ namespace FilePicker
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ str }));
 
-			auto save = savePicker();
+			auto save = savePicker;
 			co_await save.PickSaveFileAsync();
 
-			if (file == nullptr) {
+			if (!save) {
 				
 			} else {
 				await FileIO::WriteTextAsync(save, content);
