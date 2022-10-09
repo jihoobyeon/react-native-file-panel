@@ -33,11 +33,11 @@ namespace FilePicker
 			openPicker.FileTypeFilter().ReplaceAll({ str });
 			
 			StorageFile file = co_await openPicker.PickSingleFileAsync();
-			hstring uri = file.Path();
-			if (uri == NULL) {
+			string uri = to_string(file.Path());
+			if (uri == "") {
 				promise.Reject("No file selected.");
 			} else {
-				promise.Resolve(to_string(uri));
+				promise.Resolve(uri);
 			}
 		}
 
