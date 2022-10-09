@@ -26,20 +26,19 @@ namespace FilePicker
 		{
 			wchar_t dot[32] = L".";
 			wcscat_s(dot, 32, ext);
-			auto result = promise;
 			
 			FileOpenPicker openPicker;
 			openPicker.ViewMode(PickerViewMode::Thumbnail);
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			openPicker.FileTypeFilter().ReplaceAll({ dot });
 
-			StorageFile file = co_await openPicker.PickSingleFileAsync();
+			StorageFile file = openPicker().PickSingleFileAsync();
 
 			if (file == nullptr) {
-				result.Reject("No file selected.");
+				promise.Reject("No file selected.");
 			} else {
 				hstring uri = file.Path();
-				result.Resolve(to_string(uri));
+				promise.Resolve(to_string(uri));
 			}
 		}
 
@@ -53,7 +52,7 @@ namespace FilePicker
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ dot }));
 
-			StorageFile file = co_await savePicker.PickSaveFileAsync();
+			StorageFile file = savePicker().PickSaveFileAsync();
 
 			if (file == nullptr) {
 				
