@@ -51,7 +51,7 @@ namespace FilePicker
             savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ str }));
 
             StorageFile file = co_await savePicker.PickSaveFileAsync();
-            await FileIO::WriteTextAsync(file, content.c_str);
+            await FileIO::WriteTextAsync(file, content.c_str());
         }
     };
 }
