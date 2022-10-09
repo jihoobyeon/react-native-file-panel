@@ -35,7 +35,7 @@ namespace FilePicker
 			if (!openPicker) {
 				promise.Reject("No file selected.");
 			} else {
-				hstring uri = co_await open.PickSingleFileAsync().Path();
+				hstring uri = co_await openPicker.PickSingleFileAsync().Path();
 				promise.Resolve(to_string(uri));
 			}
 		}
@@ -55,7 +55,7 @@ namespace FilePicker
 			if (!savePicker) {
 				
 			} else {
-				await FileIO::WriteTextAsync(save, content);
+				await FileIO::WriteTextAsync(savePicker, content);
 			}
 		}
 	};
