@@ -3,6 +3,7 @@
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Windows.Storage.Pickers.h>
+#include <winrt/Windows.UI.Xaml.h>
 
 #include "pch.h"
 #include "JSValue.h"
