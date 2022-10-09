@@ -32,13 +32,10 @@ namespace FilePicker
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			openPicker.FileTypeFilter().ReplaceAll({ str });
 
-			auto open = openPicker;
-			co_await open.PickSingleFileAsync();
-
-			if (!open) {
+			if (!openPicker) {
 				promise.Reject("No file selected.");
 			} else {
-				hstring uri = open.Path();
+				hstring uri = co_await open.PickSingleFileAsync().Path();
 				promise.Resolve(to_string(uri));
 			}
 		}
@@ -53,10 +50,9 @@ namespace FilePicker
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ str }));
 
-			auto save = savePicker;
-			co_await save.PickSaveFileAsync();
+			co_await savePicker.PickSaveFileAsync();
 
-			if (!save) {
+			if (!savePicker) {
 				
 			} else {
 				await FileIO::WriteTextAsync(save, content);
