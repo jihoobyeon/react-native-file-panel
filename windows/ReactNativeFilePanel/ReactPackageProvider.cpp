@@ -4,7 +4,7 @@
 #include "ReactPackageProvider.g.cpp"
 #endif
 
-#include "FilePicker.h"
+#include "ReactNativeFilePanel.h"
 
 using namespace winrt::Microsoft::ReactNative;
 
