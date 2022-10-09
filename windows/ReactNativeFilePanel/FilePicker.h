@@ -32,8 +32,8 @@ namespace FilePicker
 			openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			openPicker.FileTypeFilter().ReplaceAll({ str });
 
-			hstring uri = co_await openPicker.PickSingleFileAsync().Path();
-			if (!uri) {
+			hstring uri = openPicker.PickSingleFileAsync().Path();
+			if (uri == null) {
 				promise.Reject("No file selected.");
 			} else {
 				promise.Resolve(to_string(uri));
@@ -50,7 +50,7 @@ namespace FilePicker
 			savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
 			savePicker.FileTypeChoices().Insert(L"", single_threaded_vector<hstring>({ str }));
 
-			await FileIO::WriteTextAsync(co_await savePicker.PickSaveFileAsync();, content);
+			await FileIO::WriteTextAsync(co_await savePicker.PickSaveFileAsync(), content);
 		}
 	};
 }
