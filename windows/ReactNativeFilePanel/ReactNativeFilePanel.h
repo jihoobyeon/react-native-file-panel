@@ -49,7 +49,7 @@ namespace FilePicker
             
             FileSavePicker savePicker;
             savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            savePicker.FileTypeChoices().Insert(0, { to_string(str) });
+            savePicker.FileTypeChoices().Insert(ext, { to_string(str) });
 
             StorageFile file = co_await savePicker.PickSaveFileAsync();
             await FileIO::WriteTextAsync(file, content.c_str());
