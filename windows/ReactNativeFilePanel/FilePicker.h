@@ -25,7 +25,7 @@ namespace FilePicker
         fire_and_forget Open(hstring const& ext, React::ReactPromise<string> promise) noexcept
         {
             wchar_t str[32] = L".";
-            wcscat_s(str, 32, ext.c_str);
+            wcscat_s(str, 32, ext.c_str());
             
             FileOpenPicker openPicker;
             openPicker.ViewMode(PickerViewMode::List);
@@ -44,7 +44,7 @@ namespace FilePicker
         fire_and_forget Save(hstring const& ext, hstring const& content) noexcept
         {
             wchar_t str[32] = L".";
-            wcscat_s(str, 32, ext.c_str);
+            wcscat_s(str, 32, ext.c_str());
             
             FileSavePicker savePicker;
             savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
