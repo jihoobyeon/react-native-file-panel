@@ -40,22 +40,8 @@ namespace FilePicker
                 openPicker.FileTypeFilter().ReplaceAll({ ext });
 
                 StorageFile file = co_await openPicker.PickSingleFileAsync();
-                try
-                {
-                    if (file == nullptr)
-                    {
-                        promise.Reject("No file selected.");
-                    } 
-                    else
-                    {
-                        promise.Resolve(to_string(file.Path()));
-                    }
-                }
-                catch (hresult_error const& ex)
-                {
-                    hresult hr = ex.code();
-                    hstring message = ex.message();
-                }
+                if (file != nullptr) { promise.Resolve(to_string(file.Path())); } 
+                else { promise.Reject("No file selected."); }
             });
         }
 
@@ -68,12 +54,8 @@ namespace FilePicker
                 savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
 
                 StorageFile file = co_await savePicker.PickSaveFileAsync();
-                try { await FileIO::WriteTextAsync(file, content); }
-                catch (hresult_error const& ex)
-                {
-                    hresult hr = ex.code();
-                    hstring message = ex.message();
-                }
+                if (file != nullptr) { await FileIO::WriteTextAsync(file, content); }
+                else {}
             });
         }
     };
