@@ -31,7 +31,7 @@ namespace FilePicker
             FileOpenPicker openPicker;
             openPicker.ViewMode(PickerViewMode::List);
             openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            openPicker.FileTypeFilter().ReplaceAll(single_threaded_vector<hstring>({ str }));
+            openPicker.FileTypeFilter().ReplaceAll({ str });
             
             StorageFile file = co_await openPicker.PickSingleFileAsync();
             if (file == nullptr) {
