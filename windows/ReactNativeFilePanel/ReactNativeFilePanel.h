@@ -22,31 +22,41 @@ namespace FilePicker
     REACT_MODULE(Panel);
     struct Panel
     {
-        REACT_METHOD(Open, L"open");
-        fire_and_forget Open(const hstring ext, React::ReactPromise<string> promise) noexcept
+        REACT_INIT(Initialize);
+        void Initialize(const ReactContext& reactContext) noexcept
         {
-            FileOpenPicker openPicker;
-            openPicker.ViewMode(PickerViewMode::List);
-            openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            openPicker.FileTypeFilter().ReplaceAll({ ext });
-            
-            StorageFile file = co_await openPicker.PickSingleFileAsync();
-            if (file == nullptr) {
-                promise.Reject("No file selected.");
-            } else {
-                promise.Resolve(to_string(file.Path()));
-            }
+            context = reactContext;
+        }
+        
+        REACT_METHOD(Open, L"open");
+        void Open(const hstring ext, React::ReactPromise<string> promise) noexcept
+        {
+            context.UIDispatcher().Post([]()->fire_and_forget {
+                FileOpenPicker openPicker;
+                openPicker.ViewMode(PickerViewMode::List);
+                openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+                openPicker.FileTypeFilter().ReplaceAll({ ext });
+
+                StorageFile file = co_await openPicker.PickSingleFileAsync();
+                if (file == nullptr) {
+                    promise.Reject("No file selected.");
+                } else {
+                    promise.Resolve(to_string(file.Path()));
+                }
+            });
         }
 
         REACT_METHOD(Save, L"save");
-        fire_and_forget Save(const hstring ext, const hstring content) noexcept
+        void Save(const hstring ext, const hstring content) noexcept
         {
-            FileSavePicker savePicker;
-            savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
-            
-            StorageFile file = co_await savePicker.PickSaveFileAsync();
-            await FileIO::WriteTextAsync(file, content);
+            context.UIDispatcher().Post([]()->fire_and_forget {
+                FileSavePicker savePicker;
+                savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+                savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
+
+                StorageFile file = co_await savePicker.PickSaveFileAsync();
+                await FileIO::WriteTextAsync(file, content);
+            });
         }
     };
 }
