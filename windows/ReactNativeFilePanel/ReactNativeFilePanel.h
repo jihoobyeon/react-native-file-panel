@@ -33,7 +33,7 @@ namespace FilePicker
         REACT_METHOD(Open, L"open");
         void Open(const hstring ext, React::ReactPromise<string> promise) noexcept
         {
-            context.UIDispatcher().Post([=ext, &promise]()->fire_and_forget {
+            context.UIDispatcher().Post([ext, &promise]()->fire_and_forget {
                 FileOpenPicker openPicker;
                 openPicker.ViewMode(PickerViewMode::List);
                 openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
