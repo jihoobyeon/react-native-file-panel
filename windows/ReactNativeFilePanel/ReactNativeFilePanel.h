@@ -27,11 +27,12 @@ namespace FilePicker
         {
             wchar_t str[32] = L".";
             wcscat_s(str, 32, ext.c_str());
+            wstring extstr = str;
             
             FileOpenPicker openPicker;
             openPicker.ViewMode(PickerViewMode::List);
             openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            openPicker.FileTypeFilter().ReplaceAll({ "*" });
+            openPicker.FileTypeFilter().ReplaceAll({ extstr });
             
             StorageFile file = co_await openPicker.PickSingleFileAsync();
             if (file == nullptr) {
@@ -46,13 +47,14 @@ namespace FilePicker
         {
             wchar_t str[32] = L".";
             wcscat_s(str, 32, ext.c_str());
+            wstring extstr = str;
             
             FileSavePicker savePicker;
             savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            savePicker.FileTypeChoices().Insert(ext.c_str(), single_threaded_vector<hstring>({ "*" }));
+            savePicker.FileTypeChoices().Insert(to_string(ext), single_threaded_vector<hstring>({ extstr }));
             
             StorageFile file = co_await savePicker.PickSaveFileAsync();
-            await FileIO::WriteTextAsync(file, content.c_str());
+            await FileIO::WriteTextAsync(file, to_string(content));
         }
     };
 }
