@@ -25,14 +25,10 @@ namespace FilePicker
         REACT_METHOD(Open, L"open");
         fire_and_forget Open(hstring const ext, React::ReactPromise<string> promise) noexcept
         {
-            wchar_t str[32] = L".";
-            wcscat_s(str, 32, ext.c_str());
-            wstring extstr = str;
-            
             FileOpenPicker openPicker;
             openPicker.ViewMode(PickerViewMode::List);
             openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            openPicker.FileTypeFilter().ReplaceAll({ L".txt" });
+            openPicker.FileTypeFilter().ReplaceAll({ ext });
             
             StorageFile file = co_await openPicker.PickSingleFileAsync();
             if (file == nullptr) {
@@ -45,13 +41,9 @@ namespace FilePicker
         REACT_METHOD(Save, L"save");
         fire_and_forget Save(hstring const ext, hstring const content) noexcept
         {
-            wchar_t str[32] = L".";
-            wcscat_s(str, 32, ext.c_str());
-            wstring extstr = str;
-            
             FileSavePicker savePicker;
             savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            savePicker.FileTypeChoices().Insert(to_string(ext), single_threaded_vector<hstring>({ L".txt" }));
+            savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
             
             StorageFile file = co_await savePicker.PickSaveFileAsync();
             await FileIO::WriteTextAsync(file, to_string(content));
