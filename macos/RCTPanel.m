@@ -19,7 +19,7 @@ rejecter:(RCTPromiseRejectBlock)reject)
 {
   NSOpenPanel *panel = [NSOpenPanel openPanel];
   NSObject *file;
-  UTType *type = [UTType typeWithFilenameExtension:ext];
+  UTType *type = [UTType typeWithFilenameExtension:[ext substringFromIndex:1]];
   [panel setAllowedContentTypes:@[type]];
   [panel setAllowsOtherFileTypes:NO];
   [panel setCanChooseFiles:YES];
@@ -44,7 +44,7 @@ RCT_EXPORT_METHOD(save:(NSString *)ext
   content:(NSString *)content)
 {
   NSSavePanel *panel = [NSSavePanel savePanel];
-  UTType *type = [UTType typeWithFilenameExtension:ext];
+  UTType *type = [UTType typeWithFilenameExtension:[ext substringFromIndex:1]];
   [panel setAllowedContentTypes:@[type]];
   [panel setAllowsOtherFileTypes:NO];
   [panel setCanCreateDirectories:YES];
