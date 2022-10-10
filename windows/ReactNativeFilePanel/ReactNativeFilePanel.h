@@ -23,7 +23,7 @@ namespace FilePicker
     struct Panel
     {
         REACT_METHOD(Open, L"open");
-        fire_and_forget Open(hstring const ext, React::ReactPromise<string> promise) noexcept
+        fire_and_forget Open(const wstring ext, React::ReactPromise<string> promise) noexcept
         {
             FileOpenPicker openPicker;
             openPicker.ViewMode(PickerViewMode::List);
@@ -39,7 +39,7 @@ namespace FilePicker
         }
 
         REACT_METHOD(Save, L"save");
-        fire_and_forget Save(hstring const ext, hstring const content) noexcept
+        fire_and_forget Save(const wstring ext, const wstring content) noexcept
         {
             FileSavePicker savePicker;
             savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
