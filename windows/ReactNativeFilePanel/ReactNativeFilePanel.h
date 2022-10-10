@@ -32,7 +32,7 @@ namespace FilePicker
             FileOpenPicker openPicker;
             openPicker.ViewMode(PickerViewMode::List);
             openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            openPicker.FileTypeFilter().ReplaceAll({ extstr });
+            openPicker.FileTypeFilter().ReplaceAll({ L".txt" });
             
             StorageFile file = co_await openPicker.PickSingleFileAsync();
             if (file == nullptr) {
@@ -51,7 +51,7 @@ namespace FilePicker
             
             FileSavePicker savePicker;
             savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            savePicker.FileTypeChoices().Insert(to_string(ext), single_threaded_vector<hstring>({ extstr }));
+            savePicker.FileTypeChoices().Insert(to_string(ext), single_threaded_vector<hstring>({ L".txt" }));
             
             StorageFile file = co_await savePicker.PickSaveFileAsync();
             await FileIO::WriteTextAsync(file, to_string(content));
