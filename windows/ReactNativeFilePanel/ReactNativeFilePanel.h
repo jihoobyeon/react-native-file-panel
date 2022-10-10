@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <Shobjidl.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Windows.Storage.Pickers.h>
@@ -28,15 +27,11 @@ namespace FilePicker
         {
             wchar_t str[32] = L".";
             wcscat_s(str, 32, ext.c_str());
-            HWND hwnd;
             
             FileOpenPicker openPicker;
             openPicker.ViewMode(PickerViewMode::List);
             openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            openPicker.FileTypeFilter().Append(str);
-            
-            auto initializeWithWindow = openPicker.as<::IInitializeWithWindow>();
-            initializeWithWindow->Initialize(hwnd);
+            openPicker.FileTypeFilter().ReplaceAll({ str });
             
             StorageFile file = co_await openPicker.PickSingleFileAsync();
             if (file == nullptr) {
@@ -51,15 +46,11 @@ namespace FilePicker
         {
             wchar_t str[32] = L".";
             wcscat_s(str, 32, ext.c_str());
-            HWND hwnd;
                 
             FileSavePicker savePicker;
             savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-            savePicker.FileTypeChoices().Insert(ext, { str });
+            savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ str }));
             
-            auto initializeWithWindow = savePicker.as<::IInitializeWithWindow>();
-            initializeWithWindow->Initialize(hwnd);
-
             StorageFile file = co_await savePicker.PickSaveFileAsync();
             await FileIO::WriteTextAsync(file, content.c_str());
         }
