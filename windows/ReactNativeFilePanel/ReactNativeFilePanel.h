@@ -27,7 +27,7 @@ namespace FilePicker
         {
             FileOpenPicker openPicker;
             openPicker.ViewMode(PickerViewMode::List);
-            openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+         // openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
             openPicker.FileTypeFilter().ReplaceAll({ ext });
             
             StorageFile file = co_await openPicker.PickSingleFileAsync();
@@ -42,7 +42,7 @@ namespace FilePicker
         fire_and_forget Save(const hstring ext, const hstring content) noexcept
         {
             FileSavePicker savePicker;
-            savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+         // savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
             savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
             
             StorageFile file = co_await savePicker.PickSaveFileAsync();
