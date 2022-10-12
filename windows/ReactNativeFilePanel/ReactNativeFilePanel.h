@@ -1,5 +1,6 @@
-﻿#pragma once
+#pragma once
 
+#include <winrt/Microsoft.ReactNative.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Windows.Storage.Pickers.h>
@@ -31,9 +32,9 @@ namespace FilePicker
         }
         
         REACT_METHOD(Open, L"open");
-        void Open(const hstring ext, React::ReactPromise<string> promise) noexcept
+        void Open(const hstring ext, React::ReactPromise<string>&& promise) noexcept
         {
-            context.UIDispatcher().Post([ext, &promise]()->fire_and_forget {
+            context.UIDispatcher().Post([=]()->fire_and_forget {
                 FileOpenPicker openPicker;
                 openPicker.ViewMode(PickerViewMode::List);
                 openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
@@ -54,8 +55,7 @@ namespace FilePicker
                 savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
 
                 StorageFile file = co_await savePicker.PickSaveFileAsync();
-                if (file != nullptr) { await FileIO::WriteTextAsync(file, content); }
-                else {}
+                if (file != nullptr) { FileIO::WriteTextAsync(file, content); }
             });
         }
     };
