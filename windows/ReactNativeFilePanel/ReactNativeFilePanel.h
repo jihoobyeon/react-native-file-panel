@@ -20,12 +20,11 @@ using namespace Windows::UI::Xaml;
 
 namespace FilePicker
 {
-    REACT_STRUCT(Context)
-    ReactContext Context;
-    
     REACT_MODULE(Panel);
     struct Panel
     {
+        ReactContext Context;
+        
         REACT_INIT(Initialize);
         void Initialize(const ReactContext& reactContext) noexcept
         {
