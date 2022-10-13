@@ -23,18 +23,18 @@ namespace FilePicker
     REACT_MODULE(Panel);
     struct Panel
     {
-        ReactContext Context;
+        ReactContext context = nullptr;
         
         REACT_INIT(Initialize);
         void Initialize(const ReactContext& reactContext) noexcept
         {
-            Context = reactContext;
+            context = reactContext;
         }
         
         REACT_METHOD(Open, L"open");
         void Open(const hstring ext, React::ReactPromise<string>&& promise) noexcept
         {
-            Context.UIDispatcher().Post([=]()->fire_and_forget {
+            context.UIDispatcher().Post([=]()->fire_and_forget {
                 FileOpenPicker openPicker;
                 openPicker.ViewMode(PickerViewMode::List);
                 openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
@@ -49,13 +49,13 @@ namespace FilePicker
         REACT_METHOD(Save, L"save");
         void Save(const hstring ext, const hstring content) noexcept
         {
-            Context.UIDispatcher().Post([=]()->fire_and_forget {
+            context.UIDispatcher().Post([=]()->fire_and_forget {
                 FileSavePicker savePicker;
                 savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
                 savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
 
                 StorageFile file = co_await savePicker.PickSaveFileAsync();
-                if (file != nullptr) { FileIO::WriteTextAsync(file, content); }
+                if (file != nullptr) { co_await FileIO::WriteTextAsync(file, content); }
             });
         }
     };
