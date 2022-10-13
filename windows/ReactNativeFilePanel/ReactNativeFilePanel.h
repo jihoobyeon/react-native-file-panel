@@ -20,21 +20,22 @@ using namespace Windows::UI::Xaml;
 
 namespace FilePicker
 {
+    REACT_STRUCT(Context)
+    ReactContext Context;
+    
     REACT_MODULE(Panel);
     struct Panel
     {
-        ReactContext context;
-        
         REACT_INIT(Initialize);
         void Initialize(const ReactContext& reactContext) noexcept
         {
-            context = reactContext;
+            Context = reactContext;
         }
         
         REACT_METHOD(Open, L"open");
         void Open(const hstring ext, React::ReactPromise<string>&& promise) noexcept
         {
-            context.UIDispatcher().Post([=]()->fire_and_forget {
+            Context.UIDispatcher().Post([=]()->fire_and_forget {
                 FileOpenPicker openPicker;
                 openPicker.ViewMode(PickerViewMode::List);
                 openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
@@ -49,7 +50,7 @@ namespace FilePicker
         REACT_METHOD(Save, L"save");
         void Save(const hstring ext, const hstring content) noexcept
         {
-            context.UIDispatcher().Post([=]()->fire_and_forget {
+            Context.UIDispatcher().Post([=]()->fire_and_forget {
                 FileSavePicker savePicker;
                 savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
                 savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
