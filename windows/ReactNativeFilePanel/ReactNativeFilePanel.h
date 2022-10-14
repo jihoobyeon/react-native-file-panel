@@ -36,7 +36,7 @@ namespace FilePicker
         {
             StorageFile file = nullptr;
             
-            context.UIDispatcher().Post([ext, file]()->fire_and_forget {
+            context.UIDispatcher().Post([ext, &file]()->fire_and_forget {
                 FileOpenPicker openPicker;
                 openPicker.ViewMode(PickerViewMode::List);
                 openPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
@@ -45,7 +45,7 @@ namespace FilePicker
                 file = co_await openPicker.PickSingleFileAsync();
             });
             
-            context.JSDispatcher().Post([promise, file]()->void {
+            context.JSDispatcher().Post([promise, &file]()->void {
                 if (file != nullptr) { promise.Resolve(to_string(file.Path())); } 
                 else { promise.Reject("No file selected."); }
             });
@@ -56,7 +56,7 @@ namespace FilePicker
         {
             StorageFile file = nullptr;
             
-            context.UIDispatcher().Post([ext, file]()->fire_and_forget {
+            context.UIDispatcher().Post([ext, &file]()->fire_and_forget {
                 FileSavePicker savePicker;
                 savePicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
                 savePicker.FileTypeChoices().Insert(ext, single_threaded_vector<hstring>({ ext }));
@@ -64,7 +64,7 @@ namespace FilePicker
                 file = co_await savePicker.PickSaveFileAsync();
             });
             
-            context.JSDispatcher().Post([content, file]()->fire_and_forget {
+            context.JSDispatcher().Post([content, &file]()->fire_and_forget {
                 if (file != nullptr) { co_await FileIO::WriteTextAsync(file, content); }
             });
         }
