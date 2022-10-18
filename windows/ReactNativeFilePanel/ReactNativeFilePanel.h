@@ -51,7 +51,7 @@ namespace FilePicker
     }
 
     REACT_METHOD(Save, L"save");
-    void Save(const hstring ext, const hstring content) noexcept
+    void Save(const hstring ext, const hstring content, React::ReactPromise<hstring>&& promise) noexcept
     {
       context.UIDispatcher().Post([ext, content, this] {
         IAsyncOperation<StorageFile> file = nullptr;
@@ -62,7 +62,12 @@ namespace FilePicker
         file = savePicker.PickSaveFileAsync();
 
         context.JSDispatcher().Post([content, file] {
-          if (file != nullptr) { FileIO::WriteTextAsync(file.get(), content); }
+          if (file != nullptr)
+          {
+            FileIO::WriteTextAsync(file.get(), content);
+            promise.Resolve(file.get().Path());
+          }
+          else { promise.Reject("No file selected."); }
         });
       });
     }
