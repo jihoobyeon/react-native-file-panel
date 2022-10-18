@@ -14,8 +14,8 @@
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(open:(NSString *)ext
-resolver:(RCTPromiseResolveBlock)resolve
-rejecter:(RCTPromiseRejectBlock)reject)
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject)
 {
   NSOpenPanel *panel = [NSOpenPanel openPanel];
   NSObject *file;
@@ -41,9 +41,12 @@ rejecter:(RCTPromiseRejectBlock)reject)
 }
 
 RCT_EXPORT_METHOD(save:(NSString *)ext
-  content:(NSString *)content)
+  content:(NSString *)content
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject)
 {
   NSSavePanel *panel = [NSSavePanel savePanel];
+  NSObject *file;
   UTType *type = [UTType typeWithFilenameExtension:[ext substringFromIndex:1]];
   [panel setAllowedContentTypes:@[type]];
   [panel setAllowsOtherFileTypes:NO];
@@ -55,8 +58,14 @@ RCT_EXPORT_METHOD(save:(NSString *)ext
     atomically:NO
     encoding:NSUTF8StringEncoding
     error:nil];
+    file = [selectedFile path];
   }
   [panel close];
+  if(file) {
+		resolve(file);
+	} else {
+		reject(@"No file selected", @"No file selected", nil);
+	}
 }
 
 - (dispatch_queue_t)methodQueue
