@@ -44,7 +44,7 @@ namespace FilePicker
         file = openPicker.PickSingleFileAsync();
 
         context.JSDispatcher().Post([promise, file] {
-          if (file != nullptr) { promise.Resolve(file.get().Path()); }
+          if (file.get() != nullptr) { promise.Resolve(file.get().Path()); }
           else { promise.Reject("No file selected."); }
         });
       });
@@ -62,7 +62,7 @@ namespace FilePicker
         file = savePicker.PickSaveFileAsync();
 
         context.JSDispatcher().Post([content, promise, file] {
-          if (file != nullptr)
+          if (file.get() != nullptr)
           {
             FileIO::WriteTextAsync(file.get(), content);
             promise.Resolve(file.get().Path());
