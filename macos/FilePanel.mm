@@ -9,19 +9,18 @@ RCT_EXPORT_MODULE()
 
 // Don't compile this code when we build for the old architecture.
 #ifdef RCT_NEW_ARCH_ENABLED
-- (NSData *)openFile:(NSArray<NSString *>)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+- (void)openFile:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		NSData *file = nil;
 		
 		[panel setCanChooseFiles:YES];
 		[panel setCanChooseDirectories:NO];
 		[panel setCanCreateDirectories:YES];
-		[panel allowsMultipleSelection:NO];
 		if (ext.count <= 0 || [ext[0] isEqualToString:@"*"]) {
 				[panel setAllowsOtherFileTypes:YES];
 		}
 		else {
-				NSMutableArray<UTType *> types = [NSMutableArray arrayWithCapacity:ext.count];
+				NSMutableArray<UTType *> *types = [NSMutableArray arrayWithCapacity:ext.count];
 				for (NSString *extension in ext) {
 						UTType *type = [UTType typeWithFilenameExtension:[extension substringFromIndex:1]];
 						if (type != nil) {
@@ -45,19 +44,18 @@ RCT_EXPORT_MODULE()
 		}
 }
 
-- (NSArray<NSData *>)openFiles:(NSArray<NSString *>)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+- (void)openFiles:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
-		NSArray<NSData *>files = @[];
+		NSArray<NSData *> *files = @[];
 		
 		[panel setCanChooseFiles:YES];
 		[panel setCanChooseDirectories:NO];
 		[panel setCanCreateDirectories:YES];
-		[panel allowsMultipleSelection:YES];
 		if (ext.count <= 0 || [ext[0] isEqualToString:@"*"]) {
 				[panel setAllowsOtherFileTypes:YES];
 		}
 		else {
-				NSMutableArray<UTType *> types = [NSMutableArray arrayWithCapacity:ext.count];
+				NSMutableArray<UTType *> *types = [NSMutableArray arrayWithCapacity:ext.count];
 				for (NSString *extension in ext) {
 						UTType *type = [UTType typeWithFilenameExtension:[extension substringFromIndex:1]];
 						if (type != nil) {
@@ -69,7 +67,7 @@ RCT_EXPORT_MODULE()
 		}
 		
 		if ([panel runModal] == NSModalResponseOK) {
-				NSMutableArray<NSData *> temp = [NSMutableArray arrayWithCapacity:[[panel URLs] count]];
+				NSMutableArray<NSData *> *temp = [NSMutableArray arrayWithCapacity:[[panel URLs] count]];
 				for (NSURL *file in [panel URLs]) {
 						[temp addObject:[NSData dataWithContentsOfURL:file]];
 				}
@@ -85,14 +83,14 @@ RCT_EXPORT_MODULE()
 		}
 }
 
-- (NSData *)openFolder resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+
+- (void)openFolder:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		NSURL *folder = nil;
 		
 		[panel setCanChooseFiles:NO];
 		[panel setCanChooseDirectories:YES];
 		[panel setCanCreateDirectories:YES];
-		[panel allowsMultipleSelection:NO];
 		[panel setAllowsOtherFileTypes:NO];
 		
 		if ([panel runModal] == NSModalResponseOK) {
@@ -100,26 +98,23 @@ RCT_EXPORT_MODULE()
 		}
 		[panel close];
 		
-		if (file) {
+		if (folder) {
 				resolve(folder);
 		}
 		else {
-				reject(@"No file selected", @"No file selected", nil);
+				reject(@"No folder selected", @"No folder selected", nil);
 		}
 }
 
-- (void)saveFile:(NSData *)content (NSArray<NSString *>)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+- (void)saveFile:(NSString *)content ext:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 		NSSavePanel *panel = [NSSavePanel savePanel];
 		
-		[panel setCanChooseFiles:YES];
-		[panel setCanChooseDirectories:NO];
 		[panel setCanCreateDirectories:YES];
-		[panel allowsMultipleSelection:NO];
 		if (ext.count <= 0 || [ext[0] isEqualToString:@"*"]) {
 				[panel setAllowsOtherFileTypes:YES];
 		}
 		else {
-				NSMutableArray<UTType *> types = [NSMutableArray arrayWithCapacity:ext.count];
+				NSMutableArray<UTType *> *types = [NSMutableArray arrayWithCapacity:ext.count];
 				for (NSString *extension in ext) {
 						UTType *type = [UTType typeWithFilenameExtension:[extension substringFromIndex:1]];
 						if (type != nil) {
@@ -132,16 +127,11 @@ RCT_EXPORT_MODULE()
 		
 		if ([panel runModal] == NSModalResponseOK) {
 				NSURL *file = [panel URL];
-				[content writeToFile:[selectedFile path] atomically:NO encoding:NSUTF8StringEncoding error:nil];
+				[content writeToFile:[file path] atomically:NO encoding:NSUTF8StringEncoding error:nil];
 		}
 		[panel close];
   
-		if(file) {
-				resolve(nil);
-		}
-		else {
-				reject(@"No file selected", @"No file selected", nil);
-		}
+		resolve(nil);
 }
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
