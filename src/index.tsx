@@ -1,6 +1,6 @@
 const FilePanel = require('./NativeFilePanel').default;
 
-export function openFile(ext?: string[]): Promise<Buffer> {
+export function openFile(ext?: string[]): Promise<object> {
   if (ext) {
     return FilePanel.openFile(ext);
   } else {
@@ -8,7 +8,7 @@ export function openFile(ext?: string[]): Promise<Buffer> {
   }
 }
 
-export function openFiles(ext?: string[]): Promise<Buffer[]> {
+export function openFiles(ext?: string[]): Promise<object[]> {
   if (ext) {
     return FilePanel.openFiles(ext);
   } else {
@@ -16,11 +16,11 @@ export function openFiles(ext?: string[]): Promise<Buffer[]> {
   }
 }
 
-export async function openFolder(): Promise<Buffer> {
+export function openFolder(): Promise<object> {
   return FilePanel.openFolder();
 }
 
-export function saveFile(content: Buffer, text?: string[]): Promise<Buffer[]> {
+export function saveFile(content: unknown, ext?: string[]): Promise<void> {
   if (ext) {
     return FilePanel.saveFile(content, ext);
   } else {
