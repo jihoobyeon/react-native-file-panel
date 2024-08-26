@@ -1,0 +1,16 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build:macos": {
+      "env": ["RCT_NEW_ARCH_ENABLED"],
+      "inputs": [
+        "package.json",
+        "*.podspec",
+        "macos",
+        "src/*.ts",
+        "src/*.tsx"
+      ],
+      "outputs": []
+    }
+  }
+}
