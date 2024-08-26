@@ -1,8 +1,12 @@
 {
   "name": "react-native-file-panel",
+  "main": "src/index",
   "type": "modules",
   "version": "1.0.0",
-  "private": true,
+  "license": "MIT",
+  "author": "Jihoo Byeon",
+  "homepage": "https://github.com/jihoobyeon/react-native-file-panel",
+  "description": "File picker panel module for React Native Windows/macOS",
   "scripts": {
     "lint": "eslint .",
     "start": "react-native start",
@@ -36,8 +40,9 @@
   },
   "packageManager": "yarn@3.6.4",
   "codegenConfig": {
-    "name": "FilePanel",
+    "name": "FilePanelSpec",
     "type": "modules",
+    "jsSrcsDir": "src",
     "windows": {
       "namespace": "FilePanelCodegen",
       "outputDirectory": "windows/FilePanel/codegen",
