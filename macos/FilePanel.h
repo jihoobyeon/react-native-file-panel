@@ -1,6 +1,6 @@
 
 #ifdef RCT_NEW_ARCH_ENABLED
-#import "RNFilePanelSpec.h"
+#import <FilePanelSpec/FilePanelSpec.h>
 
 @interface FilePanel : NSObject <NativeFilePanelSpec>
 #else
