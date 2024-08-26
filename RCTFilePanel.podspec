@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :macos => 10.15 }
+  s.platforms    = { :osx => "11.0" }
   s.source       = { :git => "https://github.com/jihoobyeon/react-native-file-panel.git", :tag => "#{s.version}" }
 
   s.source_files = "macos/**/*.{h,m,mm,cpp}"
