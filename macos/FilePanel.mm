@@ -106,7 +106,7 @@ RCT_EXPORT_MODULE()
 				[panel close];
 				
 				if (folder) {
-						resolve(folder);
+						resolve([folder absoluteString]);
 				}
 				else {
 						reject(@"No folder selected", @"No folder selected", nil);
@@ -136,7 +136,7 @@ RCT_EXPORT_MODULE()
 				
 				if ([panel runModal] == NSModalResponseOK) {
 						NSURL *file = [panel URL];
-						[content writeToFile:[file path] atomically:NO encoding:NSUTF8StringEncoding error:nil];
+						[[content dataUsingEncoding:NSUTF8StringEncoding] writeToFile:[file path] atomically:NO];
 				}
 				[panel close];
 			
