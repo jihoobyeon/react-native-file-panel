@@ -10,6 +10,20 @@
 
 #include "NativeModules.h"
 
+#include <string>
+#include <vector>
+
+#include <winrt/Windows.Foundation.h>
+#include <winrt/Windows.Security.Cryptography.h>
+#include <winrt/Windows.Storage.h>
+#include <winrt/Windows.Storage.Pickers.h>
+
+using namespace winrt::Windows::Foundation;
+using namespace winrt::Windows::Security::Cryptography;
+using namespace winrt::Windows::Storage;
+using namespace winrt::Windows::Storage::Pickers;
+using namespace winrt::Windows::Storage::Streams;
+
 namespace winrt::FilePanel
 {
 
@@ -22,16 +36,16 @@ struct FilePanel
   void Initialize(React::ReactContext const &reactContext) noexcept;
 
   REACT_METHOD(Open, L"openFile");
-  void Open(const IVector<winrt::hstring> ext, React::ReactPromise<StorageFile>&& result) noexcept;
+  void Open(const std::vector<std::string> ext, React::ReactPromise<std::string>&& result) noexcept;
 
   REACT_METHOD(OpenMultiple, L"openFiles");
-  void OpenMultiple(const IVector<winrt::hstring> ext, React::ReactPromise<IVectorView<StorageFile>>&& result) noexcept;
+  void OpenMultiple(const std::vector<std::string> ext, React::ReactPromise<std::vector<std::string>>&& result) noexcept;
 
   REACT_METHOD(OpenFolder, L"openFolder");
-  void OpenFolder(React::ReactPromise<StorageFolder>&& result) noexcept;
+  void OpenFolder(React::ReactPromise<std::string>&& result) noexcept;
 
   REACT_METHOD(Save, L"saveFile");
-  void Save(IBuffer const& content, const IVector<winrt::hstring> ext, React::ReactPromise<void>&& result) noexcept;
+  void Save(std::string const& content, const std::vector<std::string> ext, React::ReactPromise<void>&& result) noexcept;
 
 private:
   React::ReactContext m_context;
