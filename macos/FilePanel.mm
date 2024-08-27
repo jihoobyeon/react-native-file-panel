@@ -39,12 +39,9 @@ RCT_EXPORT_MODULE()
 				[panel close];
 				
 				if (file) {
-						NSLog(@"%@", file);
-						NSLog(@"%@", [[NSString alloc] initWithData:file encoding:NSUTF8StringEncoding]);
 						resolve([file base64EncodedStringWithOptions:0]);
 				}
 				else {
-						NSLog(@"없음");
 						reject(@"No file selected", @"No file selected", nil);
 				}
 		});
@@ -53,7 +50,7 @@ RCT_EXPORT_MODULE()
 - (void)openFiles:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 		dispatch_async(dispatch_get_main_queue(), ^{
 				NSOpenPanel *panel = [NSOpenPanel openPanel];
-				NSArray<NSData *> *files = @[];
+				NSArray<NSString *> *files = @[];
 				
 				[panel setCanChooseFiles:YES];
 				[panel setCanChooseDirectories:NO];
@@ -75,11 +72,11 @@ RCT_EXPORT_MODULE()
 				}
 				
 				if ([panel runModal] == NSModalResponseOK) {
-						NSMutableArray<NSData *> *temp = [NSMutableArray arrayWithCapacity:[[panel URLs] count]];
+						NSMutableArray<NSString *> *temp = [NSMutableArray arrayWithCapacity:[[panel URLs] count]];
 						for (NSURL *file in [panel URLs]) {
-								[temp addObject:[NSData dataWithContentsOfURL:file]];
+								[temp addObject:[[NSData dataWithContentsOfURL:file] base64EncodedStringWithOptions:0]];
 						}
-						files = temp;
+						files = [temp copy];
 				}
 				[panel close];
 				
@@ -155,3 +152,4 @@ RCT_EXPORT_MODULE()
 #endif
 
 @end
+
