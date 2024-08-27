@@ -135,8 +135,7 @@ RCT_EXPORT_MODULE()
 				}
 				
 				if ([panel runModal] == NSModalResponseOK) {
-						NSURL *file = [panel URL];
-						[[content dataUsingEncoding:NSUTF8StringEncoding] writeToFile:[file path] atomically:NO];
+						[[[NSData alloc] initWithBase64EncodedString:content options:0] writeToFile:[[panel URL] path] atomically:YES];
 				}
 				[panel close];
 			
