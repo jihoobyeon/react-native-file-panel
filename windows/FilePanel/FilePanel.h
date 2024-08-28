@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+#include <microsoft.ui.xaml.window.h>
+#include <ShObjIdl_core.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Security.Cryptography.h>
 #include <winrt/Windows.Storage.h>
