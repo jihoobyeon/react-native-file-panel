@@ -14,112 +14,128 @@ namespace winrt::FilePanel
     m_context = reactContext;
   }
 
+  HWND getHwnd() { // https://stackoverflow.com/questions/75436438
+    struct ProcessWindow { DWORD pid; HWND hwnd; } pw = {};
+    pw.pid = GetCurrentProcessId();
+    EnumWindows([](auto hwnd, auto lp) {
+      DWORD pid;
+      GetWindowThreadProcessId(hwnd, &pid);
+      if (pid != ((ProcessWindow *) lp)->pid) return TRUE;
+      ((ProcessWindow *) lp)->hwnd = hwnd;
+      return FALSE;
+    }, (LPARAM)&pw);
+
+    return pw.hwnd;
+  }
+
   void FilePanel::Open(const std::vector<std::string> ext, React::ReactPromise<std::string>&& result) noexcept {
-    FilePanel::m_context.UIDispatcher().Post([ext, result, this] {
-      StorageFile file = nullptr;
-      FileOpenPicker picker;
-      picker.ViewMode(PickerViewMode::Thumbnail);
-      picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-      if (winrt::to_hstring(ext[0]) != L"*") {
-        std::vector<winrt::hstring> hext = std::vector<winrt::hstring>();
-        for (const auto& extension : ext) {
-          hext.push_back(winrt::to_hstring(extension));
-        }
-        winrt::array_view<winrt::hstring> hextview(hext);
-        picker.FileTypeFilter().ReplaceAll(hextview);
+    HWND hwnd = getHwnd();
+    FileOpenPicker picker = FileOpenPicker();
+    picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
+    picker.ViewMode(PickerViewMode::Thumbnail);
+    picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+
+    if (winrt::to_hstring(ext[0]) != L"*") {
+      std::vector<winrt::hstring> hext = std::vector<winrt::hstring>();
+      for (const auto& extension : ext) {
+        hext.push_back(winrt::to_hstring(extension));
       }
+      winrt::array_view<winrt::hstring> hextview(hext);
+      picker.FileTypeFilter().ReplaceAll(hextview);
+    }
+    else {
+      picker.FileTypeFilter().Append(L"*");
+    }
 
-      file = picker.PickSingleFileAsync().get();
+    StorageFile file = picker.PickSingleFileAsync().get();
 
-      FilePanel::m_context.JSDispatcher().Post([result, file] {
-        if (file != nullptr) {
-          IBuffer buffer = FileIO::ReadBufferAsync(file).get();
-          result.Resolve(winrt::to_string(CryptographicBuffer::EncodeToBase64String(buffer)));
-        }
-        else {
-          result.Reject(L"No file selected.");
-        }
-      });
-    });
+    if (file != nullptr) {
+      IBuffer buffer = FileIO::ReadBufferAsync(file).get();
+      result.Resolve(winrt::to_string(CryptographicBuffer::EncodeToBase64String(buffer)));
+    }
+    else {
+      result.Reject(L"No file selected.");
+    }
   }
 
   void FilePanel::OpenMultiple(const std::vector<std::string> ext, React::ReactPromise<std::vector<std::string>>&& result) noexcept {
-    FilePanel::m_context.UIDispatcher().Post([ext, result, this] {
-      IVectorView<StorageFile> files = nullptr;
-      FileOpenPicker picker;
-      picker.ViewMode(PickerViewMode::Thumbnail);
-      picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-      if (winrt::to_hstring(ext[0]) != L"*") {
-        std::vector<winrt::hstring> hext = std::vector<winrt::hstring>();
-        for (const auto& extension : ext) {
-          hext.push_back(winrt::to_hstring(extension));
-        }
-        winrt::array_view<winrt::hstring> hextview(hext);
-        picker.FileTypeFilter().ReplaceAll(hextview);
+    HWND hwnd = getHwnd();
+    FileOpenPicker picker = FileOpenPicker();
+    picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
+    picker.ViewMode(PickerViewMode::Thumbnail);
+    picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+
+    if (winrt::to_hstring(ext[0]) != L"*") {
+      std::vector<winrt::hstring> hext = std::vector<winrt::hstring>();
+      for (const auto& extension : ext) {
+        hext.push_back(winrt::to_hstring(extension));
       }
+      winrt::array_view<winrt::hstring> hextview(hext);
+      picker.FileTypeFilter().ReplaceAll(hextview);
+    }
+    else {
+      picker.FileTypeFilter().Append(L"*");
+    }
 
-      files = picker.PickMultipleFilesAsync().get();
+    IVectorView<StorageFile> files = picker.PickMultipleFilesAsync().get();
 
-      FilePanel::m_context.JSDispatcher().Post([result, files] {
-        std::vector<std::string> contents = std::vector<std::string>();
-        if (files.Size() > 0) {
-          for (StorageFile const& file : files) {
-            IBuffer buffer = FileIO::ReadBufferAsync(file).get();
-            contents.push_back(winrt::to_string(CryptographicBuffer::EncodeToBase64String(buffer)));
-          }
-          result.Resolve(contents);
-        }
-        else {
-          result.Reject(L"No file selected.");
-        }
-      });
-    });
+    std::vector<std::string> contents = std::vector<std::string>();
+    if (files.Size() > 0) {
+      for (StorageFile const& file : files) {
+        IBuffer buffer = FileIO::ReadBufferAsync(file).get();
+        contents.push_back(winrt::to_string(CryptographicBuffer::EncodeToBase64String(buffer)));
+      }
+      result.Resolve(contents);
+    }
+    else {
+      result.Reject(L"No file selected.");
+    }
   }
 
   void FilePanel::OpenFolder(React::ReactPromise<std::string>&& result) noexcept {
-    FilePanel::m_context.UIDispatcher().Post([result, this] {
-      StorageFolder folder = nullptr;
-      FolderPicker picker;
-      picker.ViewMode(PickerViewMode::Thumbnail);
-      picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+    HWND hwnd = getHwnd();
+    FolderPicker picker = FolderPicker();
+    picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
+    picker.ViewMode(PickerViewMode::Thumbnail);
+    picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+    picker.FileTypeFilter().Append(L"*");
 
-      folder = picker.PickSingleFolderAsync().get();
+    StorageFolder folder = picker.PickSingleFolderAsync().get();
 
-      FilePanel::m_context.JSDispatcher().Post([result, folder] {
-        if (folder != nullptr) {
-          result.Resolve(winrt::to_string(folder.Path()));
-        }
-        else {
-          result.Reject(L"No folder selected.");
-        }
-      });
-    });
+    if (folder != nullptr) {
+      result.Resolve(winrt::to_string(folder.Path()));
+    }
+    else {
+      result.Reject(L"No folder selected.");
+    }
   }
 
   void FilePanel::Save(std::string const& content, const std::vector<std::string> ext, React::ReactPromise<void>&& result) noexcept {
-    FilePanel::m_context.UIDispatcher().Post([content, ext, result, this] {
-      StorageFile file = nullptr;
-      FileSavePicker picker;
-      picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
-      if (winrt::to_hstring(ext[0]) != L"*") {
-        for (const auto& extension : ext) {
-          IVector<winrt::hstring> extvec = IVector<winrt::hstring>();
-          extvec.Append(winrt::to_hstring(extension));
-          picker.FileTypeChoices().Insert(winrt::to_hstring(extension) + L" file", extvec);
-        }
+    HWND hwnd = getHwnd();
+    FileSavePicker picker = FileSavePicker();
+    picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
+    picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+    winrt::hstring m = L"";
+    
+    auto extvec = winrt::single_threaded_vector<winrt::hstring>();
+    if (winrt::to_hstring(ext[0]) != L"*") {
+      for (const auto& extension : ext) {
+        extvec.Append(winrt::to_hstring(extension));
+        picker.FileTypeChoices().Insert(winrt::to_hstring(extension) + L" file", extvec);
       }
+    }
+    else {
+      result.Reject(L"No extension specified.");
+    }
 
-      file = picker.PickSaveFileAsync().get();
+    StorageFile file = picker.PickSaveFileAsync().get();
 
-      FilePanel::m_context.JSDispatcher().Post([content, result, file] {
-        if (file != nullptr) {
-          FileIO::WriteBufferAsync(file, CryptographicBuffer::DecodeFromBase64String(winrt::to_hstring(content)));
-          result.Resolve();
-        }
-        else {
-          result.Reject(L"No file selected.");
-        }
-      });
-    });
+    if (file != nullptr) {
+      FileIO::WriteBufferAsync(file, CryptographicBuffer::DecodeFromBase64String(winrt::to_hstring(content)));
+      result.Resolve();
+    }
+    else {
+      result.Reject(L"No file selected.");
+    }
   }
 } // namespace winrt::FilePanel
