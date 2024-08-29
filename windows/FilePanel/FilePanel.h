@@ -47,7 +47,7 @@ struct FilePanel
   void OpenFolder(React::ReactPromise<std::string>&& result) noexcept;
 
   REACT_METHOD(Save, L"saveFile");
-  void Save(std::string const& content, const std::vector<std::string> ext, React::ReactPromise<void>&& result) noexcept;
+  void Save(const std::vector<std::string> ext, std::string const& content, React::ReactPromise<void>&& result) noexcept;
 
 private:
   React::ReactContext m_context;
