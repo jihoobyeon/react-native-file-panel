@@ -114,7 +114,7 @@ RCT_EXPORT_MODULE()
 		});
 }
 
-- (void)saveFile:(NSString *)content ext:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+- (void)saveFile:(NSArray<NSString *> *)ext content:(NSString *)content resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 		dispatch_async(dispatch_get_main_queue(), ^{
 				NSSavePanel *panel = [NSSavePanel savePanel];
 				
