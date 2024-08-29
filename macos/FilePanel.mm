@@ -42,7 +42,7 @@ RCT_EXPORT_MODULE()
 						resolve([file base64EncodedStringWithOptions:0]);
 				}
 				else {
-						reject(@"No file selected", @"No file selected", nil);
+						reject(@"No file selected.", @"No file selected.", nil);
 				}
 		});
 }
@@ -84,7 +84,7 @@ RCT_EXPORT_MODULE()
 						resolve(files);
 				}
 				else {
-						reject(@"No file selected", @"No file selected", nil);
+						reject(@"No file selected.", @"No file selected.", nil);
 				}
 		});
 }
@@ -109,7 +109,7 @@ RCT_EXPORT_MODULE()
 						resolve([folder absoluteString]);
 				}
 				else {
-						reject(@"No folder selected", @"No folder selected", nil);
+						reject(@"No folder selected.", @"No folder selected.", nil);
 				}
 		});
 }
@@ -117,10 +117,11 @@ RCT_EXPORT_MODULE()
 - (void)saveFile:(NSArray<NSString *> *)ext content:(NSString *)content resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 		dispatch_async(dispatch_get_main_queue(), ^{
 				NSSavePanel *panel = [NSSavePanel savePanel];
+				NSURL *file = nil;
 				
 				[panel setCanCreateDirectories:YES];
 				if (ext.count <= 0 || [ext[0] isEqualToString:@"*"]) {
-						[panel setAllowsOtherFileTypes:YES];
+						reject(@"No extension specified.", @"No extension specified.", nil);
 				}
 				else {
 						NSMutableArray<UTType *> *types = [NSMutableArray arrayWithCapacity:ext.count];
@@ -135,11 +136,17 @@ RCT_EXPORT_MODULE()
 				}
 				
 				if ([panel runModal] == NSModalResponseOK) {
-						[[[NSData alloc] initWithBase64EncodedString:content options:0] writeToFile:[[panel URL] path] atomically:YES];
+						file = [panel URL];
 				}
 				[panel close];
-			
-				resolve(nil);
+
+				if (file) {
+						[[[NSData alloc] initWithBase64EncodedString:content options:0] writeToFile:[file path] atomically:YES];
+						resolve(nil);
+				}
+				else {
+						reject(@"No file selected.", @"No file selected.", nil);
+				}
 		});
 }
 
