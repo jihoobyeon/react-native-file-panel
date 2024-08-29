@@ -110,7 +110,7 @@ namespace winrt::FilePanel
     }
   }
 
-  void FilePanel::Save(std::string const& content, const std::vector<std::string> ext, React::ReactPromise<void>&& result) noexcept {
+  void FilePanel::Save(const std::vector<std::string> ext, std::string const& content, React::ReactPromise<void>&& result) noexcept {
     HWND hwnd = getHwnd();
     FileSavePicker picker = FileSavePicker();
     picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
