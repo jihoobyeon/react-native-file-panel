@@ -18,7 +18,7 @@ export function openFolder(): Promise<string> {
   return FilePanel.openFolder();
 }
 
-export function saveFile(content: string, ext: string | string[]): Promise<void> {
+export function saveFile(ext: string | string[], content: string): Promise<void> {
   if (typeof ext === 'string') return FilePanel.saveFile(content, [ext]);
   else return FilePanel.saveFile(content, ext);
 }
