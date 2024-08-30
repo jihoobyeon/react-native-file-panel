@@ -76,7 +76,7 @@ RCT_EXPORT_MODULE()
 			for (NSURL *file in [panel URLs]) {
 				[temp addObject:[[NSData dataWithContentsOfURL:file] base64EncodedStringWithOptions:0]];
 			}
-			iles = [temp copy];
+			files = [temp copy];
 		}
 		[panel close];
 				
