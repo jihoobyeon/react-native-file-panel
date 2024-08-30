@@ -22,3 +22,6 @@ export function saveFile(ext: string | string[], content: string): Promise<void>
   if (typeof ext === 'string') return FilePanel.saveFile([ext], content);
   else return FilePanel.saveFile(ext, content);
 }
+
+export string UserPath = FilePanel.RCTUserPath;
+export string BundlePath = FilePanel.RCTBundlePath;

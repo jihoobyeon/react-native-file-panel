@@ -28,6 +28,11 @@ namespace winrt::FilePanel
     return pw.hwnd;
   }
 
+  void FilePanel::PathConstantsProvider(RN::ReactConstantProvider& constants) noexcept {
+    constants.Add(L"RCTUserPath", winrt::to_string(UserDataPaths::GetDefault()().Profile()));
+    constants.Add(L"RCTBundlePath", winrt::to_string(Package::Current().InstalledLocation().Path()));
+  }
+
   void FilePanel::Open(const std::vector<std::string> ext, React::ReactPromise<std::string>&& result) noexcept {
     HWND hwnd = getHwnd();
     FileOpenPicker picker = FileOpenPicker();

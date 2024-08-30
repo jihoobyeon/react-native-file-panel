@@ -6,6 +6,8 @@ export interface Spec extends TurboModule {
   openFiles(ext: string[]): Promise<string[]>;
   openFolder(): Promise<string>;
   saveFile(ext: string[], content: string): Promise<void>;
+  UserPath: string;
+  BundlePath: string;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('FilePanel');
