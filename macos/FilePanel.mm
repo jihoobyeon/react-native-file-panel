@@ -106,7 +106,7 @@ RCT_EXPORT_MODULE()
 				[panel close];
 				
 				if (folder) {
-						resolve([folder absoluteString]);
+						resolve([folder path]);
 				}
 				else {
 						reject(@"No folder selected.", @"No folder selected.", nil);
