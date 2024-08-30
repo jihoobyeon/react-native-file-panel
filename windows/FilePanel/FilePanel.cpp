@@ -2,6 +2,7 @@
 
 #include "FilePanel.h"
 
+using namespace winrt::Windows::ApplicationModel;
 using namespace winrt::Windows::Foundation;
 using namespace winrt::Windows::Security::Cryptography;
 using namespace winrt::Windows::Storage;
@@ -28,10 +29,10 @@ namespace winrt::FilePanel
     return pw.hwnd;
   }
 
-  FilePanelSpec_Constants FilePanel::GetConstants() noexcept {
-    ReactNativeFsSpec_Constants constants;
-    constants.RCTUserPath = winrt::to_string(UserDataPaths::GetDefault()().Profile()));
-    constants.RCTBundlePath = winrt::to_string(Package::Current().InstalledLocation().Path()));
+  FilePanelCodegen::FilePanelSpec_Constants FilePanel::GetConstants() noexcept {
+    FilePanelCodegen::FilePanelSpec_Constants constants;
+    constants.RCTUserPath = winrt::to_string(UserDataPaths::GetDefault().Profile());
+    constants.RCTBundlePath = winrt::to_string(Package::Current().InstalledLocation().Path());
     return constants;
   }
 
