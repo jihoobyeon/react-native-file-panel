@@ -100,7 +100,7 @@ namespace winrt::FilePanel
     }
   }
 
-  void FilePanel::OpenFolder(React::ReactPromise<std::string>&& result) noexcept {
+  void FilePanel::OpenFolder(React::ReactPromise<React::JSValueObject>&& result) noexcept {
     HWND hwnd = getHwnd();
     FolderPicker picker = FolderPicker();
     picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
@@ -111,7 +111,17 @@ namespace winrt::FilePanel
     StorageFolder folder = picker.PickSingleFolderAsync().get();
 
     if (folder != nullptr) {
-      result.Resolve(winrt::to_string(folder.Path()));
+      std::vector<std::string> names = std::vector<std::string>();
+      auto files = folder.GetFilesAsync().get();
+
+      for (auto const& file : files) {
+        names.push_back(winrt::to_string(file.Name()));
+      }
+
+      result.Resolve(React::JSValueObject {
+        { "path", winrt::to_string(folder.Path()) },
+        { "files", names }
+       });
     }
     else {
       result.Reject(L"No folder selected.");
