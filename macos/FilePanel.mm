@@ -13,7 +13,7 @@ RCT_EXPORT_MODULE()
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		NSData *file = nil;
-				
+
 		[panel setCanChooseFiles:YES];
 		[panel setCanChooseDirectories:NO];
 		[panel setCanCreateDirectories:YES];
@@ -32,12 +32,12 @@ RCT_EXPORT_MODULE()
 			[panel setAllowedContentTypes:[types copy]];
 			[panel setAllowsOtherFileTypes:NO];
 		}
-				
+
 		if ([panel runModal] == NSModalResponseOK) {
 			file = [NSData dataWithContentsOfURL:[panel URL]];
 		}
 		[panel close];
-				
+
 		if (file) {
 			resolve([file base64EncodedStringWithOptions:0]);
 		}
@@ -51,7 +51,7 @@ RCT_EXPORT_MODULE()
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		NSArray<NSString *> *files = @[];
-				
+
 		[panel setCanChooseFiles:YES];
 		[panel setCanChooseDirectories:NO];
 		[panel setCanCreateDirectories:YES];
@@ -70,7 +70,7 @@ RCT_EXPORT_MODULE()
 			[panel setAllowedContentTypes:[types copy]];
 			[panel setAllowsOtherFileTypes:NO];
 		}
-				
+
 		if ([panel runModal] == NSModalResponseOK) {
 			NSMutableArray<NSString *> *temp = [NSMutableArray arrayWithCapacity:[[panel URLs] count]];
 			for (NSURL *file in [panel URLs]) {
@@ -79,7 +79,7 @@ RCT_EXPORT_MODULE()
 			files = [temp copy];
 		}
 		[panel close];
-				
+
 		if (files.count > 0) {
 			resolve(files);
 		}
@@ -94,19 +94,27 @@ RCT_EXPORT_MODULE()
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		NSURL *folder = nil;
-				
+
 		[panel setCanChooseFiles:NO];
 		[panel setCanChooseDirectories:YES];
 		[panel setCanCreateDirectories:YES];
 		[panel setAllowsOtherFileTypes:NO];
-				
+
 		if ([panel runModal] == NSModalResponseOK) {
 			folder = [panel URL];
 		}
 		[panel close];
-				
+
 		if (folder) {
-			resolve([folder absoluteString]);
+			NSFileManager *fm = [NSFileManager defaultManager];
+			NSArray<NSURL *> *files = [fm contentsOfDirectoryAtURL:folder includingPropertiesForKeys:nil options:0 error:nil];
+			NSMutableArray<NSString *> *names = [NSMutableArray arrayWithCapacity:files.count];
+			
+			for (NSURL *url in files) {
+				[names addObject:[url lastPathComponent]];
+			}
+			
+			resolve(@{ @"path": [folder path], @"files": [names copy] });
 		}
 		else {
 			reject(@"No folder selected.", @"No folder selected.", nil);
@@ -118,7 +126,7 @@ RCT_EXPORT_MODULE()
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSSavePanel *panel = [NSSavePanel savePanel];
 		NSURL *file = nil;
-				
+
 		[panel setCanCreateDirectories:YES];
 		if (ext.count <= 0 || [ext[0] isEqualToString:@"*"]) {
 			reject(@"No extension specified.", @"No extension specified.", nil);
@@ -134,7 +142,7 @@ RCT_EXPORT_MODULE()
 			[panel setAllowedContentTypes:[types copy]];
 			[panel setAllowsOtherFileTypes:NO];
 		}
-				
+
 		if ([panel runModal] == NSModalResponseOK) {
 			file = [panel URL];
 		}
@@ -162,4 +170,3 @@ RCT_EXPORT_MODULE()
 #endif
 
 @end
-
