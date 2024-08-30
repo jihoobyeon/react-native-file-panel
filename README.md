@@ -1,5 +1,5 @@
 # react-native-file-panel
-> A native module which implements file picker panel for React Native for Windows/macOS
+A native module which implements file picker panel for React Native for Windows/macOS
 
 ## Installation
 `yarn add react-native-file-panel`\
@@ -56,9 +56,9 @@ export default function App(): JSX.Element {
 }
 ```
 
-### `openFolder()`: `Promise<string[]>`
+### `openFolder()`: `Promise<{ path: string, files: string[] }>`
 Opens a folder picker panel which allows to pick a folder and open it.\
-If folder has picked, returns absolute path(Windows)/URI(macOS) of the folder.
+If folder has picked, returns absolute path and list of names of contents of the folder.
 
 Sample code:
 ```
@@ -77,7 +77,7 @@ export default function App(): JSX.Element {
 
 ### `saveFile(ext: string|string[], content: string)`: `Promise<void>`
 Opens a file picker panel which allows to pick/make a file and save contents to it.\
-**`content` must be base64-encoded string.**
+**`content` must be base64-encoded string.**\
 **Least one file extension required.**
 
 Sample code:
@@ -94,3 +94,15 @@ export default function App(): JSX.Element {
   );
 }
 ```
+
+### Constants (added in ver. 1.0.1)
+## `UserPath`
+Returns current user's home directory path.
+```
+If your username is 'kim', then `UserPath` will return:
+Windows: C:\Users\user\kim\
+macOS: /Users/kim/
+```
+
+## `BundlePath`
+Returns app's bundle path.
