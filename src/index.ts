@@ -23,5 +23,5 @@ export function saveFile(ext: string | string[], content: string): Promise<void>
   else return FilePanel.saveFile(ext, content);
 }
 
-export const UserPath: string = FilePanel.RCTUserPath;
-export const BundlePath: string = FilePanel.RCTBundlePath;
+export const UserPath: string = FilePanel.getConstants().RCTUserPath;
+export const BundlePath: string = FilePanel.getConstants().RCTBundlePath;
