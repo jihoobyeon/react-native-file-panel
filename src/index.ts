@@ -14,7 +14,7 @@ export function openFiles(ext?: string | string[]): Promise<string[]> {
   } else return FilePanel.openFiles(['*']);
 }
 
-export function openFolder(): Promise<string> {
+export function openFolder(): Promise<{ path: string, files: string[] }> {
   return FilePanel.openFolder();
 }
 
