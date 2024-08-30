@@ -58,7 +58,7 @@ export default function App(): JSX.Element {
 
 ### `openFolder()`: `Promise<string[]>`
 Opens a folder picker panel which allows to pick a folder and open it.\
-If folder has picked, returns absolute path(Windows)/URI(macOS) of the folder.
+If folder has picked, returns absolute path of the folder.
 
 Sample code:
 ```
