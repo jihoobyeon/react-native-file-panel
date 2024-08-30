@@ -8,6 +8,7 @@
 #endif
 #include "codegen\NativeFilePanelSpec.g.h"
 
+#include "JSValue.h"
 #include "NativeModules.h"
 
 #include <string>
@@ -42,7 +43,7 @@ struct FilePanel
   void OpenMultiple(const std::vector<std::string> ext, React::ReactPromise<std::vector<std::string>>&& result) noexcept;
 
   REACT_METHOD(OpenFolder, L"openFolder");
-  void OpenFolder(React::ReactPromise<std::string>&& result) noexcept;
+  void OpenFolder(React::ReactPromise<React::JSValueObject>&& result) noexcept;
 
   REACT_METHOD(Save, L"saveFile");
   void Save(const std::vector<std::string> ext, std::string const& content, React::ReactPromise<void>&& result) noexcept;
