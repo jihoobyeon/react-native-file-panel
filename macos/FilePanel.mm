@@ -150,7 +150,7 @@ RCT_EXPORT_MODULE()
 	});
 }
 
-- (NSDictionary *)constantsToExport {
+- (NSDictionary *)getConstants {
 	return @{ @"RCTUserPath": NSHomeDirectory(), @"RCTBundlePath": [[NSBundle mainBundle] bundlePath] };
 }
 
