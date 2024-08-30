@@ -2,7 +2,6 @@
 
 #include "FilePanel.h"
 
-using namespace winrt::Windows::ApplicationModel;
 using namespace winrt::Windows::Foundation;
 using namespace winrt::Windows::Security::Cryptography;
 using namespace winrt::Windows::Storage;
@@ -27,13 +26,6 @@ namespace winrt::FilePanel
     }, (LPARAM)&pw);
 
     return pw.hwnd;
-  }
-
-  FilePanelCodegen::FilePanelSpec_Constants FilePanel::GetConstants() noexcept {
-    FilePanelCodegen::FilePanelSpec_Constants constants;
-    constants.RCTUserPath = winrt::to_string(UserDataPaths::GetDefault().Profile());
-    constants.RCTBundlePath = winrt::to_string(Package::Current().InstalledLocation().Path());
-    return constants;
   }
 
   void FilePanel::Open(const std::vector<std::string> ext, React::ReactPromise<std::string>&& result) noexcept {
@@ -100,7 +92,7 @@ namespace winrt::FilePanel
     }
   }
 
-  void FilePanel::OpenFolder(React::ReactPromise<React::JSValueObject>&& result) noexcept {
+  void FilePanel::OpenFolder(React::ReactPromise<std::string>&& result) noexcept {
     HWND hwnd = getHwnd();
     FolderPicker picker = FolderPicker();
     picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
@@ -111,17 +103,7 @@ namespace winrt::FilePanel
     StorageFolder folder = picker.PickSingleFolderAsync().get();
 
     if (folder != nullptr) {
-      std::vector<std::string> names = std::vector<std::string>();
-      auto files = folder.GetFilesAsync().get();
-
-      for (auto const& file : files) {
-        names.push_back(winrt::to_string(file.Name()));
-      }
-
-      result.Resolve(React::JSValueObject {
-        { "path", winrt::to_string(folder.Path()) },
-        { "files", names }
-       });
+      result.Resolve(winrt::to_string(folder.Path()));
     }
     else {
       result.Reject(L"No folder selected.");
