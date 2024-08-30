@@ -37,8 +37,8 @@ struct FilePanel
   REACT_INIT(Initialize)
   void Initialize(React::ReactContext const &reactContext) noexcept;
 
-  REACT_CONSTANT_PROVIDER(PathConstantsProvider)
-  void PathConstantsProvider(RN::ReactConstantProvider& constants) noexcept;
+  REACT_GET_CONSTANTS(GetConstants)
+  FilePanelSpec_Constants GetConstants() noexcept;
 
   REACT_METHOD(Open, L"openFile");
   void Open(const std::vector<std::string> ext, React::ReactPromise<std::string>&& result) noexcept;
