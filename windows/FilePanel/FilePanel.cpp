@@ -50,8 +50,7 @@ namespace winrt::FilePanel
     StorageFile file = picker.PickSingleFileAsync().get();
 
     if (file != nullptr) {
-      IBuffer buffer = FileIO::ReadBufferAsync(file).get();
-      result.Resolve(winrt::to_string(CryptographicBuffer::EncodeToBase64String(buffer)));
+      result.Resolve(winrt::to_string(file.Path()));
     }
     else {
       result.Reject(L"No file selected.");
@@ -82,8 +81,7 @@ namespace winrt::FilePanel
     std::vector<std::string> contents = std::vector<std::string>();
     if (files.Size() > 0) {
       for (StorageFile const& file : files) {
-        IBuffer buffer = FileIO::ReadBufferAsync(file).get();
-        contents.push_back(winrt::to_string(CryptographicBuffer::EncodeToBase64String(buffer)));
+        contents.push_back(winrt::to_string(file.Path()));
       }
       result.Resolve(contents);
     }
@@ -116,7 +114,7 @@ namespace winrt::FilePanel
     picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
     picker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
     winrt::hstring m = L"";
-    
+
     auto extvec = winrt::single_threaded_vector<winrt::hstring>();
     if (winrt::to_hstring(ext[0]) != L"*") {
       for (const auto& extension : ext) {
