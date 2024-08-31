@@ -16,7 +16,7 @@ If you are using this library for macOS, you have to modify `{your-project}/maco
 
 ### `openFile(ext?: string|string[])`: `Promise<string>`
 Opens a file picker panel which allows only to pick one file and open it.\
-If file has picked, the file will be encoded to base64 string and sent inside to JavaScript context. so if it's text file, you have to decode that base64 string.
+If file has picked, it will return the **path** of the file. **Breaking change at 1.1.0**
 
 Sample code:
 ```
@@ -37,7 +37,7 @@ export default function App(): JSX.Element {
 
 ### `openFiles(ext?: string|string[])`: `Promise<string[]>`
 Opens a file picker panel which allows to pick more than one file and open it.\
-Same as `openFile`, but returns an array of base64-encoded string.
+Same as `openFile`, but returns an array of **paths.** **Breaking change at 1.1.0**
 
 Sample code:
 ```
