@@ -14,7 +14,7 @@ If you are using this library for macOS, you have to modify `{your-project}/maco
 ## Usage
 **`ext`(File extensions) must include `.`(dot)**
 
-### `openFile(ext?: string|string[])`: `Promise<string>`
+### `openFile(ext?: string|string[], defaultPath?: string)`: `Promise<string>`
 Opens a file picker panel which allows only to pick one file and open it.\
 If file has picked, it will return the **path** of the file. **Breaking change at 1.1.0**
 
@@ -28,14 +28,14 @@ export default function App(): JSX.Element {
   return (
     <View>
       <Button title='TestAny' onPress={ async () => console.log(await openFile()) } />
-      <Button title='TestTxt' onPress={ async () => console.log(await openFile('.txt')) } />
       <Button title='TestMulti' onPress={ async () => console.log(await openFile(['.txt', '.md'])) } />
+      <Button title='TestDefault' onPress={ async () => console.log(await openFile('.txt', 'C:\\Users\\kim\\Desktop')) } />
     </View>
   );
 }
 ```
 
-### `openFiles(ext?: string|string[])`: `Promise<string[]>`
+### `openFiles(ext?: string|string[], defaultPath?: string)`: `Promise<string[]>`
 Opens a file picker panel which allows to pick more than one file and open it.\
 Same as `openFile`, but returns an array of **paths.** **Breaking change at 1.1.0**
 
@@ -49,14 +49,14 @@ export default function App(): JSX.Element {
   return (
     <View>
       <Button title='TestAny' onPress={ async () => console.log(await openFiles()) } />
-      <Button title='TestTxts' onPress={ async () => console.log(await openFiles('.txt')) } />
       <Button title='TestMulti' onPress={ async () => console.log(await openFiles(['.txt', '.md'])) } />
+      <Button title='TestDefault' onPress={ async () => console.log(await openFiles('.txt', 'C:\\Users\\kim\\Desktop')) } />
     </View>
   );
 }
 ```
 
-### `openFolder()`: `Promise<string[]>`
+### `openFolder(defaultPath?: string)`: `Promise<string[]>`
 Opens a folder picker panel which allows to pick a folder and open it.\
 If folder has picked, returns absolute path of the folder.
 
@@ -70,13 +70,14 @@ export default function App(): JSX.Element {
   return (
     <View>
       <Button title='TestFolder' onPress={ async () => console.log(await openFolder()) } />
+      <Button title='TestDefault' onPress={ async () => console.log(await openFolder('C:\\Users\\kim\\Desktop')) } />
     </View>
   );
 }
 ```
 
-### `saveFile(ext: string|string[], content: string)`: `Promise<void>`
-Opens a file picker panel which allows to pick/make a file and save contents to it.\
+### `saveFile(ext: string|string[], content: string, defaultPath?: string)`: `Promise<void>`
+Opens a file picker panel which allows to pick/make a file and save contents to it. **returns path of saved file.** **Breaking change at 1.2.0**\
 **`content` must be base64-encoded string.**
 **Least one file extension required.**
 
@@ -89,7 +90,8 @@ import { saveFile } from 'react-native-file-panel';
 export default function App(): JSX.Element {
   return (
     <View>
-      <Button title='TestSave' onPress={ async () => await saveFile('.txt', 'VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4=') } />
+      <Button title='TestSave' onPress={ async () => console.log(await saveFile('.txt', 'VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4=')) } />
+      <Button title='TestDefault' onPress={ async () => console.log(await saveFile('.txt', '', 'C:\\Users\\kim\\Desktop')) } />
     </View>
   );
 }
