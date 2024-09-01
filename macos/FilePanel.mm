@@ -9,31 +9,15 @@ RCT_EXPORT_MODULE()
 
 // Don't compile this code when we build for the old architecture.
 #ifdef RCT_NEW_ARCH_ENABLED
-- (void)openFile:(NSArray<NSString *> *)ext defaultPath:(NSString *)defaultPath resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+- (void)openFile:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		NSURL *file = nil;
-		NSURL *defaultFolder = nil;
 
 		[panel setCanChooseFiles:YES];
 		[panel setCanChooseDirectories:NO];
 		[panel setCanCreateDirectories:YES];
 		[panel setAllowsMultipleSelection:NO];
-		if ([defaultPath isEqualToString:@"*"]) {
-			defaultFolder = [NSURL fileURLWithPath:NSHomeDirectory()];
-			panel.directoryURL = defaultFolder;
-		}
-		else {
-			BOOL isFolder = true;
-			defaultFolder = [NSURL fileURLWithPath:defaultPath isDirectory:isFolder];
-			if (!isFolder) {
-				reject(@"Given path is not a directory.", @"Given path is not a directory.", nil);
-			}
-			else {
-				panel.directoryURL = defaultFolder;
-			}
-		}
-		
 		if (ext.count <= 0 || [ext[0] isEqualToString:@"*"]) {
 			[panel setAllowsOtherFileTypes:YES];
 		}
@@ -63,31 +47,15 @@ RCT_EXPORT_MODULE()
 	});
 }
 
-- (void)openFiles:(NSArray<NSString *> *)ext defaultPath:(NSString *)defaultPath resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+- (void)openFiles:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		NSArray<NSString *> *files = @[];
-		NSURL *defaultFolder = nil;
 
 		[panel setCanChooseFiles:YES];
 		[panel setCanChooseDirectories:NO];
 		[panel setCanCreateDirectories:YES];
 		[panel setAllowsMultipleSelection:YES];
-		if ([defaultPath isEqualToString:@"*"]) {
-			defaultFolder = [NSURL fileURLWithPath:NSHomeDirectory()];
-			panel.directoryURL = defaultFolder;
-		}
-		else {
-			BOOL isFolder = true;
-			defaultFolder = [NSURL fileURLWithPath:defaultPath isDirectory:isFolder];
-			if (!isFolder) {
-				reject(@"Given path is not a directory.", @"Given path is not a directory.", nil);
-			}
-			else {
-				panel.directoryURL = defaultFolder;
-			}
-		}
-		
 		if (ext.count <= 0 || [ext[0] isEqualToString:@"*"]) {
 			[panel setAllowsOtherFileTypes:YES];
 		}
@@ -122,30 +90,15 @@ RCT_EXPORT_MODULE()
 }
 
 
-- (void)openFolder:(NSString *)defaultPath resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+- (void)openFolder:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		NSURL *folder = nil;
-		NSURL *defaultFolder = nil;
 
 		[panel setCanChooseFiles:NO];
 		[panel setCanChooseDirectories:YES];
 		[panel setCanCreateDirectories:YES];
 		[panel setAllowsOtherFileTypes:NO];
-		if ([defaultPath isEqualToString:@"*"]) {
-			defaultFolder = [NSURL fileURLWithPath:NSHomeDirectory()];
-			panel.directoryURL = defaultFolder;
-		}
-		else {
-			BOOL isFolder = true;
-			defaultFolder = [NSURL fileURLWithPath:defaultPath isDirectory:isFolder];
-			if (!isFolder) {
-				reject(@"Given path is not a directory.", @"Given path is not a directory.", nil);
-			}
-			else {
-				panel.directoryURL = defaultFolder;
-			}
-		}
 
 		if ([panel runModal] == NSModalResponseOK) {
 			folder = [panel URL];
@@ -161,27 +114,12 @@ RCT_EXPORT_MODULE()
 	});
 }
 
-- (void)saveFile:(NSArray<NSString *> *)ext content:(NSString *)content defaultPath:(NSString *)defaultPath resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+- (void)saveFile:(NSArray<NSString *> *)ext content:(NSString *)content resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSSavePanel *panel = [NSSavePanel savePanel];
 		NSURL *file = nil;
-		NSURL *defaultFolder = nil;
 
 		[panel setCanCreateDirectories:YES];
-		if ([defaultPath isEqualToString:@"*"]) {
-			defaultFolder = [NSURL fileURLWithPath:NSHomeDirectory()];
-			panel.directoryURL = defaultFolder;
-		}
-		else {
-			BOOL isFolder = true;
-			defaultFolder = [NSURL fileURLWithPath:defaultPath isDirectory:isFolder];
-			if (!isFolder) {
-				reject(@"Given path is not a directory.", @"Given path is not a directory.", nil);
-			}
-			else {
-				panel.directoryURL = defaultFolder;
-			}
-		}
 		
 		if (ext.count <= 0 || [ext[0] isEqualToString:@"*"]) {
 			reject(@"No extension specified.", @"No extension specified.", nil);
