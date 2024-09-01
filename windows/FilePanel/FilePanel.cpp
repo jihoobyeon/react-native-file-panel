@@ -108,7 +108,7 @@ namespace winrt::FilePanel
     }
   }
 
-  void FilePanel::Save(const std::vector<std::string> ext, std::string const& content, React::ReactPromise<void>&& result) noexcept {
+  void FilePanel::Save(const std::vector<std::string> ext, std::string const& content, React::ReactPromise<std::string>&& result) noexcept {
     HWND hwnd = getHwnd();
     FileSavePicker picker = FileSavePicker();
     picker.try_as<IInitializeWithWindow>()->Initialize(hwnd);
@@ -130,7 +130,7 @@ namespace winrt::FilePanel
 
     if (file != nullptr) {
       FileIO::WriteBufferAsync(file, CryptographicBuffer::DecodeFromBase64String(winrt::to_hstring(content)));
-      result.Resolve();
+      result.Resolve(winrt::to_string(file.Path()));
     }
     else {
       result.Reject(L"No file selected.");
