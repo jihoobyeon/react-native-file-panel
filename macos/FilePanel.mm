@@ -5,10 +5,22 @@
 #import <UniformTypeIdentifiers/UTType.h>
 
 @implementation FilePanel
-RCT_EXPORT_MODULE()
++ (void)load
+{
+	NSLog(@"### FilePanel loaded");
+}
 
-// Don't compile this code when we build for the old architecture.
-#ifdef RCT_NEW_ARCH_ENABLED
+- (instancetype)init
+{
+	self = [super init];
+
+	if (self) {
+		NSLog(@"### FilePanel instantiated");
+	}
+
+	return self;
+}
+
 - (void)openFile:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -156,6 +168,10 @@ RCT_EXPORT_MODULE()
 {
     return std::make_shared<facebook::react::NativeFilePanelSpecJSI>(params);
 }
-#endif
+
++ (NSString *)moduleName
+{
+  return @"FilePanel";
+}
 
 @end

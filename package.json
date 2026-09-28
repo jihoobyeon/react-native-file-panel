@@ -1,22 +1,26 @@
 {
   "name": "react-native-file-panel",
-  "main": "src/index",
+  "main": "./src/index.ts",
   "type": "modules",
-  "version": "1.2.0",
+  "version": "1.2.1",
+  "files": [
+    "src",
+    "macos",
+    "*.podspec",
+    "!macos/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
   "license": "MIT",
   "author": "Jihoo Byeon",
   "homepage": "https://github.com/jihoobyeon/react-native-file-panel",
   "description": "File picker panel module for React Native Windows/macOS",
-  "scripts": {
-    "lint": "eslint .",
-    "start": "react-native start",
-    "test": "jest"
-  },
-  "dependencies": {
-    "react": "18.2.0",
-    "react-native": "^0.74.0",
-    "react-native-macos": "^0.74.0",
-    "react-native-windows": "^0.74.0"
+  "peerDependencies": {
+    "react-native": "*",
+    "react-native-macos": "*",
+    "react-native-windows": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

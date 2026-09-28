@@ -1,4 +1,4 @@
-const FilePanel = require('./NativeFilePanel').default;
+import FilePanel from './NativeFilePanel';
 
 export function openFile(ext?: string | string[]): Promise<string> {
   if (ext) {
