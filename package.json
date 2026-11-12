@@ -2,10 +2,11 @@
   "name": "react-native-file-panel",
   "main": "./src/index.ts",
   "type": "modules",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "files": [
     "src",
     "macos",
+    "windows",
     "*.podspec",
     "!macos/build",
     "!**/__tests__",
@@ -42,7 +43,7 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@3.6.4",
+  "packageManager": "yarn",
   "codegenConfig": {
     "name": "FilePanelSpec",
     "type": "modules",
