@@ -5,22 +5,6 @@
 #import <UniformTypeIdentifiers/UTType.h>
 
 @implementation FilePanel
-+ (void)load
-{
-	NSLog(@"### FilePanel loaded");
-}
-
-- (instancetype)init
-{
-	self = [super init];
-
-	if (self) {
-		NSLog(@"### FilePanel instantiated");
-	}
-
-	return self;
-}
-
 - (void)openFile:(NSArray<NSString *> *)ext resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
